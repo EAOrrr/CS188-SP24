@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="./Project 3 _ CS 188 Spring 2024_files/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="./Project 3 _ CS 188 Spring 2024_files/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet" disabled="">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(4)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(4) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(6) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(4) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list > li.nav-list-item:nth-child(4) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="./Project 3 _ CS 188 Spring 2024_files/lunr.min.js.下载"></script>
+  
+
+  <script src="./Project 3 _ CS 188 Spring 2024_files/just-the-docs.js.下载"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="https://inst.eecs.berkeley.edu/~cs188/sp24/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Project 3 | CS 188 Spring 2024</title>
+<meta name="generator" content="Jekyll v3.9.5">
+<meta property="og:title" content="Project 3">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Project 3 spec.">
+<meta property="og:description" content="Project 3 spec.">
+<link rel="canonical" href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/">
+<meta property="og:url" content="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/">
+<meta property="og:site_name" content="CS 188 Spring 2024">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Project 3">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Project 3 spec.","headline":"Project 3","url":"https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/css/just-the-docs-dark.css" as="style">
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="./Project 3 _ CS 188 Spring 2024_files/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="./Project 3 _ CS 188 Spring 2024_files/katex.min.css">
+<script defer="" src="./Project 3 _ CS 188 Spring 2024_files/katex.min.js.下载"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer="" src="./Project 3 _ CS 188 Spring 2024_files/auto-render.min.js.下载" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"></path>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"></path>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"></path>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"></path>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  <div class="side-bar">
+  <div class="site-header" role="banner">
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/" class="site-title lh-tight">
+  CS 188 Spring 2024
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/exam/" class="nav-list-link">Exam Logistics</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/calendar/" class="nav-list-link">Calendar</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/policies/" class="nav-list-link">Policies</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/resources/" class="nav-list-link">Resources</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/staff/" class="nav-list-link">Staff</a>
+  </li><li class="nav-list-item active"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/" class="nav-list-link">Project 0</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj1/" class="nav-list-link">Project 1</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/" class="nav-list-link">Project 2</a>
+        </li><li class="nav-list-item active"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a class="nav-list-link active">Project 3</a>
+            <ul class="nav-list js-toc"><ol class="nav-list "><li class="nav-list-item active"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#introduction" class="nav-list-link node-name--H2  active">Introduction</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#the-expr-class" class="nav-list-link node-name--H2 ">The Expr Class</a><ol class="nav-list "><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#a-note-on-conjoin-and-disjoin" class="nav-list-link node-name--H3 ">A note on conjoin and disjoin</a></li></ol></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#prop-symbol-names-important" class="nav-list-link node-name--H2 ">Prop Symbol Names (Important!)</a><ol class="nav-list "><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#rules" class="nav-list-link node-name--H3 ">Rules</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#pacphysics-symbols" class="nav-list-link node-name--H3 ">Pacphysics symbols</a></li></ol></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#sat-solver-setup" class="nav-list-link node-name--H2 ">SAT Solver Setup</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q1-2-points-logic-warm-up" class="nav-list-link node-name--H2 ">Q1 (2 points): Logic Warm-up</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q2-2-points-logic-workout" class="nav-list-link node-name--H2 ">Q2 (2 points): Logic Workout</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q3-4-points-pacphysics-and-satisfiability" class="nav-list-link node-name--H2 ">Q3 (4 points): Pacphysics and Satisfiability</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q4-3-points-path-planning-with-logic" class="nav-list-link node-name--H2 ">Q4 (3 points): Path Planning with Logic</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q5-3-points-eating-all-the-food" class="nav-list-link node-name--H2 ">Q5 (3 points): Eating All the Food</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#helper-functions-for-the-rest-of-the-project" class="nav-list-link node-name--H2 ">Helper Functions for the rest of the Project</a><ol class="nav-list "><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#add-pacphysics-action-and-percept-information-to-kb" class="nav-list-link node-name--H3 ">Add pacphysics, action, and percept information to KB</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-possible-pacman-locations-with-updated-kb" class="nav-list-link node-name--H3 ">Find possible pacman locations with updated KB</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-provable-wall-locations-with-updated-kb" class="nav-list-link node-name--H3 ">Find provable wall locations with updated KB</a></li></ol></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q6-4-points-localization" class="nav-list-link node-name--H2 ">Q6 (4 points): Localization</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q7-3-points-mapping" class="nav-list-link node-name--H2 ">Q7 (3 points): Mapping</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q8-4-points-slam" class="nav-list-link node-name--H2 ">Q8 (4 points): SLAM</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#submission" class="nav-list-link node-name--H2 ">Submission</a></li></ol></ul>
+          
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj4/" class="nav-list-link">Project 4</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj5/" class="nav-list-link">Project 5</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj6/" class="nav-list-link">Project 6</a>
+        </li></ul>
+  </li></ul>
+
+  
+</nav>
+
+
+  
+  
+    <footer class="site-footer">
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+  
+</div>
+
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search CS 188 Spring 2024" aria-label="Search CS 188 Spring 2024" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#" class="site-button">
+          Dark Mode
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://edstem.org/us/courses/53090" class="site-button">
+          Ed
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://cs188-oh.apps.cs61a.org/" class="site-button">
+          OH Queue
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIVsw-XMblea5a1mbamHeFLql20eTVE8HmNJzKXU_JzHtl2g/viewform" class="site-button">
+          Extensions Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTblOdJkV-8iQaM7-V5B9mBKElbn5zmb2Ovdpp5r7Y9I3IFQ/viewform" class="site-button">
+          Attendance Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaKOOcAjG3KXTalojLnT-7n9rg7rHTqP8K_7DvrKN5O73PTQ/viewform" class="site-button">
+          Discussion Attendance Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdHvjOKF9NnH8qKjkdQzLdedPC6nDXXpsQHe5ByccvcYraweA/viewform" class="site-button">
+          Feedback Form
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/">Projects</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Project 3</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="project-3-logic-and-classical-planning">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#project-3-logic-and-classical-planning" class="anchor-heading" aria-labelledby="project-3-logic-and-classical-planning"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Project 3: Logic and Classical Planning
+  
+  
+</h1>
+    
+
+<div style="text-align:center;">
+Due: <b>Tuesday, February 27, 11:59 PM PT</b>.
+</div><hr>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;width:400px" alt="Pacman and ghosts" src="./Project 3 _ CS 188 Spring 2024_files/logical_pacman.png"></p>
+
+<div style="text-align:center;">
+Logical Pacman,<br>
+Food is good AND ghosts are bad,<br>
+Spock would be so proud
+</div><hr>
+<h2 class="no_toc text-delta" id="table-of-contents">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#table-of-contents" class="anchor-heading" aria-labelledby="table-of-contents"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Table of contents
+  
+  
+</h2>
+    
+
+<ul id="markdown-toc">
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#the-expr-class" id="markdown-toc-the-expr-class">The Expr Class</a>    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#a-note-on-conjoin-and-disjoin" id="markdown-toc-a-note-on-conjoin-and-disjoin">A note on conjoin and disjoin</a></li>
+    </ul>
+  </li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#prop-symbol-names-important" id="markdown-toc-prop-symbol-names-important">Prop Symbol Names (Important!)</a>    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#rules" id="markdown-toc-rules">Rules</a></li>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#pacphysics-symbols" id="markdown-toc-pacphysics-symbols">Pacphysics symbols</a></li>
+    </ul>
+  </li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#sat-solver-setup" id="markdown-toc-sat-solver-setup">SAT Solver Setup</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q1-2-points-logic-warm-up" id="markdown-toc-q1-2-points-logic-warm-up">Q1 (2 points): Logic Warm-up</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q2-2-points-logic-workout" id="markdown-toc-q2-2-points-logic-workout">Q2 (2 points): Logic Workout</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q3-4-points-pacphysics-and-satisfiability" id="markdown-toc-q3-4-points-pacphysics-and-satisfiability">Q3 (4 points): Pacphysics and Satisfiability</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q4-3-points-path-planning-with-logic" id="markdown-toc-q4-3-points-path-planning-with-logic">Q4 (3 points): Path Planning with Logic</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q5-3-points-eating-all-the-food" id="markdown-toc-q5-3-points-eating-all-the-food">Q5 (3 points): Eating All the Food</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#helper-functions-for-the-rest-of-the-project" id="markdown-toc-helper-functions-for-the-rest-of-the-project">Helper Functions for the rest of the Project</a>    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#add-pacphysics-action-and-percept-information-to-kb" id="markdown-toc-add-pacphysics-action-and-percept-information-to-kb">Add pacphysics, action, and percept information to KB</a></li>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-possible-pacman-locations-with-updated-kb" id="markdown-toc-find-possible-pacman-locations-with-updated-kb">Find possible pacman locations with updated KB</a></li>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-provable-wall-locations-with-updated-kb" id="markdown-toc-find-provable-wall-locations-with-updated-kb">Find provable wall locations with updated KB</a></li>
+    </ul>
+  </li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q6-4-points-localization" id="markdown-toc-q6-4-points-localization">Q6 (4 points): Localization</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q7-3-points-mapping" id="markdown-toc-q7-3-points-mapping">Q7 (3 points): Mapping</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q8-4-points-slam" id="markdown-toc-q8-4-points-slam">Q8 (4 points): SLAM</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#submission" id="markdown-toc-submission">Submission</a></li>
+</ul><hr>
+<h2 id="introduction">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>n this project, you will use/write simple Python functions that generate logical sentences describing Pacman physics, aka pacphysics. Then you will use a SAT solver, pycosat, to solve the logical inference tasks associated with planning (generating action sequences to reach goal locations and eat all the dots), localization (finding oneself in a map, given a local sensor model), mapping (building the map from scratch), and SLAM (simultaneous localization and mapping).</p>
+
+<p>As in previous programming assignments, this assignment includes an autograder for you to grade your answers on your machine. This can be run with the command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>The code for this project contains the following files, available as a <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/projects/logic.zip">zip archive</a>.</p>
+
+<div class="table-wrapper"><table>
+    <tbody>
+      <tr>
+        <td colspan="2"><b>Files you'll edit:</b></td>
+      </tr>
+      <tr>
+        <td><code>logicPlan.py</code></td>
+        <td>Where you will put your code for the various logical agents.</td>
+      </tr>
+      <tr>
+        <td colspan="2"><b>Files you might want to look at:</b></td>
+      </tr>
+      <tr>
+        <td><code>logic.py</code></td>
+        <td>Propsitional logic code originally from <a href="https://code.google.com/p/aima-python/">aima-python</a> with modifications for our project. There are several useful utility functions for working with logic in here.</td>
+      </tr>
+      <tr>
+        <td><code>logicAgents.py</code></td>
+        <td>The file that defines in logical planning form the two specific problems that Pacman will encounter in this project.</td>
+      </tr>
+      <tr>
+        <td><code>pycosat_test.py</code></td>
+        <td>Quick test main function that checks that the pycosat module is installed correctly.</td>
+      </tr>
+      <tr>
+        <td><code>game.py</code></td>
+        <td>The internal simulator code for the Pacman world. The only thing you might want to look at in here is the Grid class.</td>
+      </tr>
+      <tr>
+        <td><code>test_cases/</code></td>
+        <td>Directory containing the test cases for each question.</td>
+      </tr>
+      <tr>
+        <td colspan="2"><b>Supporting files you can ignore:</b></td>
+      </tr>
+      <tr>
+        <td><code>pacman.py</code></td>
+        <td>The main file that runs Pacman games.</td>
+      </tr>
+      <tr>
+        <td><code>logic_util.py</code></td>
+        <td>Utility functions for <code>logic.py</code>.</td>
+      </tr>
+      <tr>
+        <td><code>util.py</code></td>
+        <td>Utility functions primarily for other projects.</td>
+      </tr>
+      <tr>
+        <td><code>logic_planTestClasses.py</code></td>
+        <td>Project specific autograding test classes.</td>
+      </tr>
+      <tr>
+        <td><code>graphicsDisplay.py</code></td>
+        <td>Graphics for Pacman.</td>
+      </tr>
+      <tr>
+        <td><code>graphicsUtils.py</code></td>
+        <td>Support for Pacman graphics.</td>
+      </tr>
+      <tr>
+        <td><code>textDisplay.py</code></td>
+        <td>ASCII graphics for Pacman.</td>
+      </tr>
+      <tr>
+        <td><code>ghostAgents.py</code></td>
+        <td>Agents to control ghosts.</td>
+      </tr>
+      <tr>
+        <td><code>keyboardAgents.py</code></td>
+        <td>Keyboard interfaces to control Pacman.</td>
+      </tr>
+      <tr>
+        <td><code>layout.py</code></td>
+        <td>Code for reading layout files and storing their contents.</td>
+      </tr>
+      <tr>
+        <td><code>autograder.py</code></td>
+        <td>Project autograder.</td>
+      </tr>
+      <tr>
+        <td><code>testParser.py</code></td>
+        <td>Parses autograder test and solution files.</td>
+      </tr>
+      <tr>
+        <td><code>testClasses.py</code></td>
+        <td>General autograding test classes.</td>
+      </tr>
+    </tbody>
+</table></div>
+
+<p><strong>Files to Edit and Submit</strong>: You will fill in portions of <code class="language-plaintext highlighter-rouge">logicPlan.py</code> during the assignment. Once you have completed the assignment, you will submit these files to Gradescope (for instance, you can upload all <code class="language-plaintext highlighter-rouge">.py</code> files in the folder). Please do not change the other files in this distribution.</p>
+
+<p><strong>Evaluation</strong>: Your code will be autograded for technical correctness. Please do not change the names of any provided functions or classes within the code, or you will wreak havoc on the autograder. However, the correctness of your implementation – not the autograder’s judgements – will be the final judge of your score. If necessary, we will review and grade assignments individually to ensure that you receive due credit for your work.</p>
+
+<p><strong>Academic Dishonesty</strong>: We will be checking your code against other submissions in the class for logical redundancy. If you copy someone else’s code and submit it with minor changes, we will know. These cheat detectors are quite hard to fool, so please don’t try. We trust you all to submit your own work only; please don’t let us down. If you do, we will pursue the strongest consequences available to us.</p>
+
+<p><strong>Getting Help</strong>: You are not alone! If you find yourself stuck on something, contact the course staff for help. Office hours, section, and the discussion forum are there for your support; please use them. If you can’t make our office hours, let us know and we will schedule more. We want these projects to be rewarding and instructional, not frustrating and demoralizing. But, we don’t know when or how to help unless you ask.</p>
+
+<p><strong>Discussion</strong>: Please be careful not to post spoilers.</p><hr>
+<h2 id="the-expr-class">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#the-expr-class" class="anchor-heading" aria-labelledby="the-expr-class"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The Expr Class
+  
+  
+</h2>
+    
+
+<p>In the first part of this project, you will be working with the <code class="language-plaintext highlighter-rouge">Expr</code> class defined in <code class="language-plaintext highlighter-rouge">logic.py</code> to build propositional logic sentences. An <code class="language-plaintext highlighter-rouge">Expr</code> object is implemented as a tree with logical operators (<span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∧</mo></mrow><annotation encoding="application/x-tex">\land</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.5556em;"></span><span class="mord">∧</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∨</mo></mrow><annotation encoding="application/x-tex">\lor</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.5556em;"></span><span class="mord">∨</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">¬</mi></mrow><annotation encoding="application/x-tex">\neg</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord">¬</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.3669em;"></span><span class="mrel">→</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>↔</mo></mrow><annotation encoding="application/x-tex">\leftrightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.3669em;"></span><span class="mrel">↔</span></span></span></span></span>) at each node and with literals (<span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span></span></span></span></span>) at the leaves. Here is an example sentence and its representation:</p>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>∧</mo><mi>B</mi><mo stretchy="false">)</mo><mo>↔</mo><mo stretchy="false">(</mo><mi mathvariant="normal">¬</mi><mi>C</mi><mo>∨</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(A \land B) \leftrightarrow (\neg C \lor D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0278em;">D</span><span class="mclose">)</span></span></span></span></span></span>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;width:400px" alt="Logic tree of first expression" src="./Project 3 _ CS 188 Spring 2024_files/logic_tree.png"></p>
+
+<p>To instantiate a symbol named <code class="language-plaintext highlighter-rouge">'A'</code>, call the constructor like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="n">Expr</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Expr</code> class allows you to use Python operators to build up these expressions. The following are the available Python operators and their meanings:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">~A</code>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">¬</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">\neg A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">¬</span><span class="mord mathnormal">A</span></span></span></span></span></li>
+  <li><code class="language-plaintext highlighter-rouge">A &amp; B</code>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∧</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \land B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span></span></li>
+  <li><code class="language-plaintext highlighter-rouge">A | B</code>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∨</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \lor B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span></span></li>
+  <li><code class="language-plaintext highlighter-rouge">A &gt;&gt; B</code>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>→</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \rightarrow B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span></span></li>
+  <li><code class="language-plaintext highlighter-rouge">A % B</code>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>↔</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \leftrightarrow B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span></span></li>
+</ul>
+
+<p>So to build the expression <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∧</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \land B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span></span>, you would type this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">A</span> <span class="o">=</span> <span class="n">Expr</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">Expr</span><span class="p">(</span><span class="s">'B'</span><span class="p">)</span>
+<span class="n">a_and_b</span> <span class="o">=</span> <span class="n">A</span> <span class="o">&amp;</span> <span class="n">B</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>(Note that <code class="language-plaintext highlighter-rouge">A</code> to the left of the assignment operator in that example is just a Python variable name, i.e. <code class="language-plaintext highlighter-rouge">symbol1 = Expr('A')</code> would have worked just as well.)</p>
+<h3 id="a-note-on-conjoin-and-disjoin">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#a-note-on-conjoin-and-disjoin" class="anchor-heading" aria-labelledby="a-note-on-conjoin-and-disjoin"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> A note on conjoin and disjoin
+  
+  
+</h3>
+    
+
+<p>One last important thing to note is that you must use <code class="language-plaintext highlighter-rouge">conjoin</code> and <code class="language-plaintext highlighter-rouge">disjoin</code> operators wherever possible. <code class="language-plaintext highlighter-rouge">conjoin</code> creates a chained <code class="language-plaintext highlighter-rouge">&amp;</code> (logical AND) expression, and <code class="language-plaintext highlighter-rouge">disjoin</code> creates a chained <code class="language-plaintext highlighter-rouge">|</code> (logical OR) expression. Let’s say you wanted to check whether conditions A, B, C, D, and E are all true. The naive way to achieve this is writing <code class="language-plaintext highlighter-rouge">condition = A &amp; B &amp; C &amp; D &amp; E</code>, but this actually translates to <code class="language-plaintext highlighter-rouge">((((A &amp; B) &amp; C) &amp; D) &amp; E)</code>, which creates a very nested logic tree (see (1) in diagram below) and becomes a nightmare to debug. Instead, <code class="language-plaintext highlighter-rouge">conjoin</code> makes a flat tree (see (2) in diagram below).</p>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;width:600px" alt="Flat logic tree" src="./Project 3 _ CS 188 Spring 2024_files/conjoin_diagram.png"></p><hr>
+<h2 id="prop-symbol-names-important">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#prop-symbol-names-important" class="anchor-heading" aria-labelledby="prop-symbol-names-important"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Prop Symbol Names (Important!)
+  
+  
+</h2>
+    
+
+<p>For the rest of the project, please use the following variable naming conventions:</p>
+<h3 id="rules">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#rules" class="anchor-heading" aria-labelledby="rules"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Rules
+  
+  
+</h3>
+    
+
+<ul>
+  <li>When we introduce variables, they must start with an upper-case character (including <code class="language-plaintext highlighter-rouge">Expr</code>).</li>
+  <li>Only these characters should appear in variable names: <code class="language-plaintext highlighter-rouge">A-Z</code>, <code class="language-plaintext highlighter-rouge">a-z</code>, <code class="language-plaintext highlighter-rouge">0-9</code>, <code class="language-plaintext highlighter-rouge">_</code>, <code class="language-plaintext highlighter-rouge">^</code>, <code class="language-plaintext highlighter-rouge">[</code>, <code class="language-plaintext highlighter-rouge">]</code>.</li>
+  <li>Logical connective characters (<code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">|</code>) must not appear in variable names. So, <code class="language-plaintext highlighter-rouge">Expr('A &amp; B')</code> is illegal because it attempts to create a single constant symbol named <code class="language-plaintext highlighter-rouge">'A &amp; B'</code>. We would use <code class="language-plaintext highlighter-rouge">Expr('A') &amp; Expr('B')</code> to make a logical expression.</li>
+</ul>
+<h3 id="pacphysics-symbols">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#pacphysics-symbols" class="anchor-heading" aria-labelledby="pacphysics-symbols"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Pacphysics symbols
+  
+  
+</h3>
+    
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PropSymbolExpr(pacman_str, x, y, time=t)</code>: whether or not Pacman is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>, writes <code class="language-plaintext highlighter-rouge">P[x,y]_t</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">PropSymbolExpr(wall_str, x, y)</code>: whether or not a wall is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>, writes <code class="language-plaintext highlighter-rouge">WALL[x,y]</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">PropSymbolExpr(action, time=t)</code>: whether or not pacman takes action action at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>, where action is an element of <code class="language-plaintext highlighter-rouge">DIRECTIONS</code>, writes i.e. <code class="language-plaintext highlighter-rouge">North_t</code>.</li>
+  <li>In general, <code class="language-plaintext highlighter-rouge">PropSymbolExpr(str, a1, a2, a3, a4, time=a5)</code> creates the expression <code class="language-plaintext highlighter-rouge">str[a1,a2,a3,a4]_a5</code> where <code class="language-plaintext highlighter-rouge">str</code> is just a string.</li>
+</ul>
+
+<p>There is additional, more detailed documentation for the <code class="language-plaintext highlighter-rouge">Expr</code> class in <code class="language-plaintext highlighter-rouge">logic.py</code>.</p><hr>
+<h2 id="sat-solver-setup">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#sat-solver-setup" class="anchor-heading" aria-labelledby="sat-solver-setup"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> SAT Solver Setup
+  
+  
+</h2>
+    
+
+<p>A SAT (satisfiability) solver takes a logic expression which encodes the rules of the world and returns a model (true and false assignments to logic symbols) that satisfies that expression if such a model exists. To efficiently find a possible model from an expression, we take advantage of the <a href="https://pypi.org/project/pycosat/">pycosat</a> module, which is a Python wrapper around the <a href="http://fmv.jku.at/picosat/">picoSAT</a> library.</p>
+
+<p>Unfortunately, this requires installing this module/library on each machine. In the command line, run <code class="language-plaintext highlighter-rouge">pip install pycosat</code>, or <code class="language-plaintext highlighter-rouge">pip3 install pycosat</code> on some setups, or <code class="language-plaintext highlighter-rouge">conda install pycosat</code> for <code class="language-plaintext highlighter-rouge">conda</code>.</p>
+
+<p>On Windows, if you are getting an error message saying <code class="language-plaintext highlighter-rouge">error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft Build Tools": ...</code>, you will have to install a C/C++ compiler following that link; or, use <code class="language-plaintext highlighter-rouge">conda install pycosat</code>, for which you will need to have Anaconda installed (recommend uninstalling current Python before installing a new one) and run this from the Anaconda prompt.</p>
+
+<p>Testing <code class="language-plaintext highlighter-rouge">pycosat</code> installation:</p>
+
+<p>After unzipping the project code and changing to the project code directory, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pycosat_test.py
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>This should output:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1, -2, -3, -4, 5]
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Please let us know if you have issues with this setup. This is critical to completing the project, and we don’t want you to spend your time fighting with this installation process.</p><hr>
+<h2 id="q1-2-points-logic-warm-up">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q1-2-points-logic-warm-up" class="anchor-heading" aria-labelledby="q1-2-points-logic-warm-up"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q1 (2 points): Logic Warm-up
+  
+  
+</h2>
+    
+
+<p>This question will give you practice working with the <code class="language-plaintext highlighter-rouge">Expr</code> data type used in the project to represent propositional logic sentences. You will implement the following functions in <code class="language-plaintext highlighter-rouge">logicPlan.py</code>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sentence1()</code>: Create one <code class="language-plaintext highlighter-rouge">Expr</code> instance that represents the proposition that the following three sentences are true. Do not do any logical simplification, just put them in a list in this order, and return the list conjoined. Each element of your list should correspond to each of the three sentences.</li>
+</ul>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>∨</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \lor B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span></span></span></span></span></span>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">¬</mi><mi>A</mi><mo>↔</mo><mo stretchy="false">(</mo><mi mathvariant="normal">¬</mi><mi>B</mi><mo>∨</mo><mi>C</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\neg A \leftrightarrow (\neg B \lor C)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">¬</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mclose">)</span></span></span></span></span></span>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">¬</mi><mi>A</mi><mo>∨</mo><mi mathvariant="normal">¬</mi><mi>B</mi><mo>∨</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">\neg A \lor \neg B \lor C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">¬</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span></span></span></span></span></span>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sentence2()</code>: Create one <code class="language-plaintext highlighter-rouge">Expr</code> instance that represents the proposition that the following four sentences are true. Again, do not do any logical simplification, just put them in a list in this order, and return the list conjoined.</li>
+</ul>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>C</mi><mo>↔</mo><mo stretchy="false">(</mo><mi>B</mi><mo>∨</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C \leftrightarrow (B \lor D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0278em;">D</span><span class="mclose">)</span></span></span></span></span></span>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>A</mi><mo>→</mo><mo stretchy="false">(</mo><mi mathvariant="normal">¬</mi><mi>B</mi><mo>∧</mo><mi mathvariant="normal">¬</mi><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">A \rightarrow (\neg B \land \neg D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.0278em;">D</span><span class="mclose">)</span></span></span></span></span></span>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">¬</mi><mo stretchy="false">(</mo><mi>B</mi><mo>∧</mo><mi mathvariant="normal">¬</mi><mi>C</mi><mo stretchy="false">)</mo><mo>→</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">\neg (B \land \neg C) \rightarrow A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">¬</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span></span>
+
+<span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">¬</mi><mi>D</mi><mo>→</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">\neg D \rightarrow C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right: 0.0278em;">D</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span></span></span></span></span></span>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sentence3()</code>: Using the <code class="language-plaintext highlighter-rouge">PropSymbolExpr</code> constructor, create the symbols <code class="language-plaintext highlighter-rouge">'PacmanAlive_0'</code>, <code class="language-plaintext highlighter-rouge">'PacmanAlive_1'</code>, <code class="language-plaintext highlighter-rouge">'PacmanBorn_0'</code>, and <code class="language-plaintext highlighter-rouge">'PacmanKilled_0'</code> (<em>hint</em>: recall that <code class="language-plaintext highlighter-rouge">PropSymbolExpr(str, a1, a2, a3, a4, time=a5)</code> creates the expression <code class="language-plaintext highlighter-rouge">str[a1,a2,a3,a4]_a5</code> where <code class="language-plaintext highlighter-rouge">str</code> is a string; you should make some strings for this problem to match these exactly). Then, create one <code class="language-plaintext highlighter-rouge">Expr</code> instance which encodes the following three English sentences as propositional logic in this order without any simplification:
+    <ol>
+      <li>Pacman is alive at time 1 if and only if he was alive at time 0 and he was not killed at time 0 or he was not alive at time 0 and he was born at time 0.</li>
+      <li>At time 0, Pacman cannot both be alive and be born.</li>
+      <li>Pacman is born at time 0.</li>
+    </ol>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">findModelUnderstandingCheck()</code>:
+    <ol>
+      <li>Look at how the <code class="language-plaintext highlighter-rouge">findModel(sentence)</code> method works: it uses <code class="language-plaintext highlighter-rouge">to_cnf</code> to convert the input sentence into Conjunctive Normal Form (the form required by the SAT solver), and passes it to the SAT solver to find a satisfying assignment to the symbols in <code class="language-plaintext highlighter-rouge">sentence</code>, i.e., a model. A model is a dictionary of the symbols in your expression and a corresponding assignment of <code class="language-plaintext highlighter-rouge">True</code> or <code class="language-plaintext highlighter-rouge">False</code>. Test your <code class="language-plaintext highlighter-rouge">sentence1()</code>, <code class="language-plaintext highlighter-rouge">sentence2()</code>, and <code class="language-plaintext highlighter-rouge">sentence3()</code> with findModel by opening an interactive session in Python and running <code class="language-plaintext highlighter-rouge">from logicPlan import *</code> and <code class="language-plaintext highlighter-rouge">findModel(sentence1())</code> and similar queries for the other two. Do they match what you were expecting?</li>
+      <li>Based on the above, fill in <code class="language-plaintext highlighter-rouge">findModelUnderstandingCheck</code> so that it returns what <code class="language-plaintext highlighter-rouge">findModel(Expr('a'))</code> would return if lower case variables were allowed. You should not use <code class="language-plaintext highlighter-rouge">findModel</code> or <code class="language-plaintext highlighter-rouge">Expr</code> beyond what’s already given; simply directly recreate the output.</li>
+    </ol>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">entails(premise, conclusion)</code>: Return <code class="language-plaintext highlighter-rouge">True</code> if and only if the <code class="language-plaintext highlighter-rouge">premise</code> entails the <code class="language-plaintext highlighter-rouge">conclusion</code>. <em>Hint</em>: <code class="language-plaintext highlighter-rouge">findModel</code> is helpful here; think about what must be unsatisfiable in order for the entails to be <code class="language-plaintext highlighter-rouge">True</code>, and what it means for something to be unstatisfiable.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">plTrueInverse(assignments, inverse_statement)</code>: Returns <code class="language-plaintext highlighter-rouge">True</code> if and only if the (not <code class="language-plaintext highlighter-rouge">inverse_statement</code>) is <code class="language-plaintext highlighter-rouge">True</code> given <code class="language-plaintext highlighter-rouge">assignments</code>.</li>
+</ul>
+
+<p>Before you continue, try instantiating a small sentence, e.g. <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>∧</mo><mi>B</mi><mo>→</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">A \land B \rightarrow C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0502em;">B</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span></span></span></span></span>, and call <code class="language-plaintext highlighter-rouge">to_cnf</code> on it. Inspect the output and make sure you understand it (refer to AIMA section 7.5.2 for details on the algorithm <code class="language-plaintext highlighter-rouge">to_cnf</code> implements).</p>
+
+<p>To test and debug your code run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q1
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="q2-2-points-logic-workout">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q2-2-points-logic-workout" class="anchor-heading" aria-labelledby="q2-2-points-logic-workout"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q2 (2 points): Logic Workout
+  
+  
+</h2>
+    
+
+<p>Implement the following three functions in <code class="language-plaintext highlighter-rouge">logicPlan.py</code> (remembering to use <code class="language-plaintext highlighter-rouge">conjoin</code> and <code class="language-plaintext highlighter-rouge">disjoin</code> whenever possible):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">atLeastOne(literals)</code>: Return a single expression (<code class="language-plaintext highlighter-rouge">Expr</code>) in CNF that is true only if at least one expression in the input list is true. Each input expression will be a literal.</li>
+  <li><code class="language-plaintext highlighter-rouge">atMostOne(literals)</code>: Return a single expression (<code class="language-plaintext highlighter-rouge">Expr</code>) in CNF that is true only if at most one expression in the input list is true. Each input expression will be a literal. <em>Hint</em>: Use <code class="language-plaintext highlighter-rouge">itertools.combinations</code>. If you have <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span> literals, and at most one is true, your resulting CNF expression should be a conjunction of <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mi>n</mi><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">{n \choose 2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.2em; vertical-align: -0.35em;"></span><span class="mord"><span class="mord"><span class="mopen delimcenter" style="top: 0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.7454em;"><span class="" style="top: -2.355em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span class="" style="top: -3.144em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.345em;"><span class=""></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;"><span class="delimsizing size1">)</span></span></span></span></span></span></span></span> clauses.</li>
+  <li><code class="language-plaintext highlighter-rouge">exactlyOne(literals)</code>: Use <code class="language-plaintext highlighter-rouge">atLeastOne</code> and <code class="language-plaintext highlighter-rouge">atMostOne</code> to return a single expression (<code class="language-plaintext highlighter-rouge">Expr</code>) in CNF that is true only if exactly one expression in the input list is true. Each input expression will be a literal.</li>
+</ul>
+
+<p>Each of these methods takes a list of <code class="language-plaintext highlighter-rouge">Expr</code> literals and returns a single <code class="language-plaintext highlighter-rouge">Expr</code> expression that represents the appropriate logical relationship between the expressions in the input list. An additional requirement is that the returned <code class="language-plaintext highlighter-rouge">Expr</code> must be in CNF (conjunctive normal form). <strong>You may NOT use the <code class="language-plaintext highlighter-rouge">to_cnf</code></strong> function in your method implementations (or any of the helper functions <code class="language-plaintext highlighter-rouge">logic.eliminate_implications</code>, <code class="language-plaintext highlighter-rouge">logic.move_not_inwards</code>, and <code class="language-plaintext highlighter-rouge">logic.distribute_and_over_or</code>).</p>
+
+<p>Don’t run <code class="language-plaintext highlighter-rouge">to_cnf</code> on your knowledge base when implementing your planning agents in later questions. This is because <code class="language-plaintext highlighter-rouge">to_cnf</code> makes your logical expression much longer sometimes, so you want to minimize this effect; <code class="language-plaintext highlighter-rouge">findModel</code> does this as needed. In later questions, reuse your implementations for <code class="language-plaintext highlighter-rouge">atLeastOne(.)</code>, <code class="language-plaintext highlighter-rouge">atMostOne(.)</code>, and <code class="language-plaintext highlighter-rouge">exactlyOne(.)</code> instead of re-engineering these functions from scratch. This avoids accidentally making unreasonably slow non-CNF-based implementations.</p>
+
+<p>You may utilize the <code class="language-plaintext highlighter-rouge">logic.pl_true</code> function to test the output of your expressions. <code class="language-plaintext highlighter-rouge">pl_true</code> takes an expression and a model and returns <code class="language-plaintext highlighter-rouge">True</code> if and only if the expression is true given the model.</p>
+
+<p>To test and debug your code run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q2
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="q3-4-points-pacphysics-and-satisfiability">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q3-4-points-pacphysics-and-satisfiability" class="anchor-heading" aria-labelledby="q3-4-points-pacphysics-and-satisfiability"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q3 (4 points): Pacphysics and Satisfiability
+  
+  
+</h2>
+    
+
+<p>In this question, you will implement the basic pacphysics logical expressions, as well as learn how to prove where pacman is and isn’t by building an appropriate knowledge base (KB) of logical expressions.</p>
+
+<p>Implement the following functions in <code class="language-plaintext highlighter-rouge">logicPlan.py</code>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pacmanSuccessorAxiomSingle</code> – this generates an expression defining the sufficient and necessary conditions for Pacman to be at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>:
+    <ul>
+      <li>Read the construction of <code class="language-plaintext highlighter-rouge">possible_causes</code> provided.</li>
+      <li>You need to fill out the return statement, which will be an <code class="language-plaintext highlighter-rouge">Expr</code>. Make sure to use <code class="language-plaintext highlighter-rouge">disjoin</code> and <code class="language-plaintext highlighter-rouge">conjoin</code> where appropriate. Looking at <code class="language-plaintext highlighter-rouge">SLAMSuccessorAxiomSingle</code> may be helpful, although note that the rules there are more complicated than in this function. The simpler side of the biconditional should be on the left for autograder purposes.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">pacphysicsAxioms</code> – here, you will generate a bunch of physics axioms. For timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>:
+    <ul>
+      <li>Arguments:
+        <ul>
+          <li>Required: <code class="language-plaintext highlighter-rouge">t</code> is time, <code class="language-plaintext highlighter-rouge">all_coords</code> and <code class="language-plaintext highlighter-rouge">non_outer_wall_coords</code> are lists of <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> tuples.</li>
+          <li>Possibly-<code class="language-plaintext highlighter-rouge">None</code>: You will be using these to call functions, not much logic is required.
+            <ul>
+              <li><code class="language-plaintext highlighter-rouge">walls_grid</code> is only passed through to <code class="language-plaintext highlighter-rouge">successorAxioms</code> and describes (known) walls.</li>
+              <li><code class="language-plaintext highlighter-rouge">sensorModel(t: int, non_outer_wall_coords) -&gt; Expr</code> returns a single <code class="language-plaintext highlighter-rouge">Expr</code> describing observation rules; you can take a look at <code class="language-plaintext highlighter-rouge">sensorAxioms</code> and <code class="language-plaintext highlighter-rouge">SLAMSensorAxioms</code> to see examples of this.</li>
+              <li><code class="language-plaintext highlighter-rouge">successorAxioms(t: int, walls_grid, non_outer_wall_coords) -&gt; Expr</code> describes transition rules, e.g. how previous locations and actions of Pacman affect the current location; we have seen this in the functions in <code class="language-plaintext highlighter-rouge">pacmanSuccessorAxiomSingle</code>.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Algorithm:
+        <ul>
+          <li>For all <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> in <code class="language-plaintext highlighter-rouge">all_coords</code>, append the following implication (if-then form): if a wall is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>, then Pacman is not at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+          <li>Pacman is at exactly one of the <code class="language-plaintext highlighter-rouge">non_outer_wall_coords</code> at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+          <li>Pacman takes exactly one of the four actions in <code class="language-plaintext highlighter-rouge">DIRECTIONS</code> at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+          <li>Sensors: append the result of <code class="language-plaintext highlighter-rouge">sensorAxioms</code>. All callers except for <code class="language-plaintext highlighter-rouge">checkLocationSatisfiability</code> make use of this; how to handle the case where we don’t want any sensor axioms added is up to you.</li>
+          <li>Transitions: append the result of <code class="language-plaintext highlighter-rouge">successorAxioms</code>. All callers will use this.</li>
+          <li>Add each of the sentences above to <code class="language-plaintext highlighter-rouge">pacphysics_sentences</code>. As you can see in the return statement, these will be conjoined and returned.</li>
+        </ul>
+      </li>
+      <li>Function passing syntax:
+        <ul>
+          <li>Let <code class="language-plaintext highlighter-rouge">def myFunction(x, y, t): return PropSymbolExpr('hello', x, y, time=t)</code> be a function we want to use.</li>
+          <li>Let <code class="language-plaintext highlighter-rouge">def myCaller(func: Callable): ...</code> be the caller that wants to use a function.</li>
+          <li>We can pass the function in: <code class="language-plaintext highlighter-rouge">myCaller(myFunction)</code>. Note that <code class="language-plaintext highlighter-rouge">myFunction</code> is not called with <code class="language-plaintext highlighter-rouge">()</code> after it.</li>
+          <li>We can use <code class="language-plaintext highlighter-rouge">myFunction</code> by having inside <code class="language-plaintext highlighter-rouge">myCaller</code> this: <code class="language-plaintext highlighter-rouge">useful_return = func(0, 1, q)</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">checkLocationSatisfiability</code> – given a transition <code class="language-plaintext highlighter-rouge">(x0_y0, action0, x1_y1)</code>, <code class="language-plaintext highlighter-rouge">action1</code>, and a <code class="language-plaintext highlighter-rouge">problem</code>, you will write a function that will return a tuple of two models <code class="language-plaintext highlighter-rouge">(model1, model2)</code>:
+    <ul>
+      <li>In <code class="language-plaintext highlighter-rouge">model1</code>, Pacman is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mn>1</mn><mo separator="true">,</mo><mi>y</mi><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x1, y1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span></span></span></span></span> given <code class="language-plaintext highlighter-rouge">x0_y0</code>, <code class="language-plaintext highlighter-rouge">action0</code>, <code class="language-plaintext highlighter-rouge">action1</code>. This model proves that it’s possible that Pacman there. Notably, if <code class="language-plaintext highlighter-rouge">model1</code> is <code class="language-plaintext highlighter-rouge">False</code>, we know Pacman is guaranteed to NOT be there.</li>
+      <li>In <code class="language-plaintext highlighter-rouge">model2</code>, Pacman is NOT at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mn>1</mn><mo separator="true">,</mo><mi>y</mi><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x1, y1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span></span></span></span></span> given <code class="language-plaintext highlighter-rouge">x0_y0</code>, <code class="language-plaintext highlighter-rouge">action0</code>, <code class="language-plaintext highlighter-rouge">action1</code>. This model proves that it’s possible that Pacman is not there. Notably, if <code class="language-plaintext highlighter-rouge">model2</code> is <code class="language-plaintext highlighter-rouge">False</code>, we know Pacman is guaranteed to be there.</li>
+      <li><code class="language-plaintext highlighter-rouge">action1</code> has no effect on determining whether the Pacman is at the location; it’s there just to match your solution to the autograder solution.</li>
+      <li>To implement this problem, you will need to add the following expressions to your KB:
+        <ul>
+          <li>Add to KB: <code class="language-plaintext highlighter-rouge">pacphysics_axioms(...)</code> with the appropriate timesteps. There is no <code class="language-plaintext highlighter-rouge">sensorModel</code> because we know everything about the world. Where needed, use <code class="language-plaintext highlighter-rouge">allLegalSuccessorAxioms</code> for transitions since this is for regular Pacman transition rules.</li>
+          <li>Add to KB: Pacman’s current location <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mn>0</mn><mo separator="true">,</mo><mi>y</mi><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x0, y0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span></li>
+          <li>Add to KB: Pacman takes <code class="language-plaintext highlighter-rouge">action0</code></li>
+          <li>Add to KB: Pacman takes <code class="language-plaintext highlighter-rouge">action1</code></li>
+        </ul>
+      </li>
+      <li>Query the SAT solver with <code class="language-plaintext highlighter-rouge">findModel</code> for two models described earlier. The queries should be different; for a reminder on how to make queries see <code class="language-plaintext highlighter-rouge">entails</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Reminder: the variable for whether Pacman is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> is <code class="language-plaintext highlighter-rouge">PropSymbolExpr(pacman_str, x, y, time=t)</code>, wall exists at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> is <code class="language-plaintext highlighter-rouge">PropSymbolExpr(wall_str, x, y)</code>, and <code class="language-plaintext highlighter-rouge">action</code> is taken at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> is <code class="language-plaintext highlighter-rouge">PropSymbolExpr(action, time=t)</code>.</p>
+
+<p>To test and debug your code run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q3
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="q4-3-points-path-planning-with-logic">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q4-3-points-path-planning-with-logic" class="anchor-heading" aria-labelledby="q4-3-points-path-planning-with-logic"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q4 (3 points): Path Planning with Logic
+  
+  
+</h2>
+    
+
+<p>Pacman is trying to find the end of the maze (the goal position). Implement the following method using propositional logic to plan Pacman’s sequence of actions leading him to the goal:</p>
+
+<p>Disclaimer: the methods from now on will be decently slow. This is because a SAT solver is very general and simply crunches logic, unlike our previous algorithms that employ a specific human-created algorithm to specific type of problem. Of note, <code class="language-plaintext highlighter-rouge">pycosat</code>’s actual algorithms are in C, which is generally a much much faster language to execute than Python, and it’s still this slow.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">positionLogicPlan(problem)</code> – given an instance of <code class="language-plaintext highlighter-rouge">logicPlan.PlanningProblem</code>, returns a sequence of action strings for the Pacman agent to execute.</li>
+</ul>
+
+<p>You will not be implementing a search algorithm, but creating expressions that represent pacphysics for all possible positions at each time step. This means that at each time step, you should be adding general rules for all possible locations on the grid, where the rules do not assume anything about Pacman’s current position.</p>
+
+<p>You will need to code up the following sentences for your knowledge base, in the following pseudocode form:</p>
+
+<ul>
+  <li>Add to KB: Initial knowledge: Pacman’s initial location at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">0</span></span></span></span></span></li>
+  <li>for t in range(50) (because Autograder will not test on layouts requiring <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≥</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">\geq 50</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.7719em; vertical-align: -0.136em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">50</span></span></span></span></span> timesteps)
+    <ol>
+      <li>Print time step; this is to see that the code is running and how far it is.</li>
+      <li>Add to KB: Initial knowledge: Pacman can only be at <code class="language-plaintext highlighter-rouge">exactlyOne</code> of the locations in <code class="language-plaintext highlighter-rouge">non_wall_coords</code> at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>. This is similar to <code class="language-plaintext highlighter-rouge">pacphysicsAxioms</code>, but don’t use that method since we are using <code class="language-plaintext highlighter-rouge">non_wall_coors</code> when generating the list of possible locations in the first place (and <code class="language-plaintext highlighter-rouge">walls_grid</code> later).</li>
+      <li>Is there a satisfying assignment for the variables given the knowledge base so far? Use <code class="language-plaintext highlighter-rouge">findModel</code> and pass in the Goal Assertion and KB.
+        <ul>
+          <li>If there is, return a sequence of actions from start to goal using <code class="language-plaintext highlighter-rouge">extractActionSequence</code>.</li>
+          <li>Here, Goal Assertion is the expression asserting that Pacman is at the goal at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+        </ul>
+      </li>
+      <li>Add to KB: Pacman takes exactly one action per timestep.</li>
+      <li>Add to KB: Transition Model sentences: call <code class="language-plaintext highlighter-rouge">pacmanSuccessorAxiomSingle(...)</code> for all possible pacman positions in <code class="language-plaintext highlighter-rouge">non_wall_coords</code>.</li>
+    </ol>
+  </li>
+</ul>
+
+<p>Test your code on smaller mazes using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-l</span> maze2x2 <span class="nt">-p</span> LogicAgent <span class="nt">-a</span> <span class="nv">fn</span><span class="o">=</span>plp
+python pacman.py <span class="nt">-l</span> tinyMaze <span class="nt">-p</span> LogicAgent <span class="nt">-a</span> <span class="nv">fn</span><span class="o">=</span>plp
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>To test and debug your code run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q4
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Note that with the way we have Pacman’s grid laid out, the left-most bottom-most space occupiable by Pacman (assuming there isn’t a wall there) is <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> and not <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(0, 0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span>, as shown below.</p>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;width:200px" alt="Pacman in grid" src="./Project 3 _ CS 188 Spring 2024_files/bottom_left_logic.png"></p>
+
+<p>Summary of Pacphysics used in Q3 and Q4 (also found at AIMA chapter 7.7):</p>
+
+<ul>
+  <li>For all <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span></span></span></span></span>, <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>: if there is a wall at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>, then pacman is not at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+  <li>For each <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>: Pacman is at exactly on of the locations described by all possible <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>. Can be optimized with knowledge of outer or all walls, follow spec for each function.</li>
+  <li>For each <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>: Pacman takes exactly on of the possible actions.</li>
+  <li>For each <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> (except for <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> = ??), transition model: Pacman is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> if and only if he was at [join with or, over all possible <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>x</mi><mo separator="true">,</mo><mi>d</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">dx, dy</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.8889em; vertical-align: -0.1944em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span></span></span></span></span>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>−</mo><mi>d</mi><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>−</mo><mi>d</mi><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x - dx, y - dy)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.8889em; vertical-align: -0.1944em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6984em; vertical-align: -0.0833em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span></span></span></span></span> and took action <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>d</mi><mi>x</mi><mo separator="true">,</mo><mi>d</mi><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(dx, dy)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">t-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6984em; vertical-align: -0.0833em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span></span></span></span></span>].</li>
+</ul>
+
+<p>Note that the above always hold true regardless of any specific game, actions, etc. To the above always-true/ axiom rules, we add information consistent with what we know.</p>
+
+<p>Debugging hints:</p>
+
+<ul>
+  <li>If you’re finding a length-0 or a length-1 solution: is it enough to simply have axioms for where Pacman is at a given time? What’s to prevent him from also being in other places?</li>
+  <li>As a sanity check, verify that if Pacman is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">0</span></span></span></span></span> and at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>4</mn><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(4, 4)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">4</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">6</span></span></span></span></span>, he was never at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>5</mn><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(5, 5)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">5</span><span class="mclose">)</span></span></span></span></span> at any time in between.</li>
+  <li>If your solution is taking more than a couple minutes to finish running, you may want to revisit implementation of <code class="language-plaintext highlighter-rouge">exactlyOne</code> and <code class="language-plaintext highlighter-rouge">atMostOne</code>, and ensure that you’re using as few clauses as possible.</li>
+</ul><hr>
+<h2 id="q5-3-points-eating-all-the-food">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q5-3-points-eating-all-the-food" class="anchor-heading" aria-labelledby="q5-3-points-eating-all-the-food"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q5 (3 points): Eating All the Food
+  
+  
+</h2>
+    
+
+<p>Pacman is trying to eat all of the food on the board. Implement the following method using propositional logic to plan Pacman’s sequence of actions leading him to the goal.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">foodLogicPlan(problem)</code>: Given an instance of <code class="language-plaintext highlighter-rouge">logicPlan.PlanningProblem</code>, returns a sequence of action strings for the Pacman agent to execute.</li>
+</ul>
+
+<p>This question has the same general format as question 4; you may copy your code from there as a starting point. The notes and hints from question 4 apply to this question as well. You are responsible for implementing whichever successor state axioms are necessary that were not implemented in previous questions.</p>
+
+<p>What you will change from the previous question:</p>
+
+<ul>
+  <li>Initialize <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>o</mi><mi>o</mi><mi>d</mi><mo stretchy="false">[</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Food[x,y]\_ t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.1389em;">F</span><span class="mord mathnormal">oo</span><span class="mord mathnormal">d</span><span class="mopen">[</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span></span></span></span></span> variables based on what we initially know using the code <code class="language-plaintext highlighter-rouge">PropSymbolExpr(food_str, x, y, time=t)</code>, where each variable is true if and only if there is a food at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+  <li>Change the goal assertion: your goal assertion sentence must be true if and only if all of the food have been eaten. This happens when all <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>o</mi><mi>o</mi><mi>d</mi><mo stretchy="false">[</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Food[x,y]\_ t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.1389em;">F</span><span class="mord mathnormal">oo</span><span class="mord mathnormal">d</span><span class="mopen">[</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span></span></span></span></span> are false.</li>
+  <li>Add a food successor axiom: what is the relation between <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>o</mi><mi>o</mi><mi>d</mi><mo stretchy="false">[</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Food[x,y]\_ t+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.1389em;">F</span><span class="mord mathnormal">oo</span><span class="mord mathnormal">d</span><span class="mopen">[</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span></span></span></span></span> and <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>o</mi><mi>o</mi><mi>d</mi><mo stretchy="false">[</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Food[x,y]\_ t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.1389em;">F</span><span class="mord mathnormal">oo</span><span class="mord mathnormal">d</span><span class="mopen">[</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span></span></span></span></span> and <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>a</mi><mi>c</mi><mi>m</mi><mi>a</mi><mi>n</mi><mo stretchy="false">[</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">Pacman[x,y]\_ t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.1389em;">P</span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal">man</span><span class="mopen">[</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span></span></span></span></span>? The food successor axiom should only involve these three variables, for any given <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> and <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>. Think about what the transition model for the food variables looks like, and add these sentences to your knowledge base at each timestep.</li>
+</ul>
+
+<p>Test your code using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-l</span> testSearch <span class="nt">-p</span> LogicAgent <span class="nt">-a</span> <span class="nv">fn</span><span class="o">=</span>flp,prob<span class="o">=</span>FoodPlanningProblem
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>We will not test your code on any layouts that require more than 50 time steps.</p>
+
+<p>To test and debug your code run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q5
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="helper-functions-for-the-rest-of-the-project">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#helper-functions-for-the-rest-of-the-project" class="anchor-heading" aria-labelledby="helper-functions-for-the-rest-of-the-project"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Helper Functions for the rest of the Project
+  
+  
+</h2>
+    
+
+<p>For the remaining questions, we will rely on the following helper functions, which will be referenced by the pseudocode for localization, mapping, and SLAM.</p>
+<h3 id="add-pacphysics-action-and-percept-information-to-kb">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#add-pacphysics-action-and-percept-information-to-kb" class="anchor-heading" aria-labelledby="add-pacphysics-action-and-percept-information-to-kb"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Add pacphysics, action, and percept information to KB
+  
+  
+</h3>
+    
+
+<ul>
+  <li>Add to KB: <code class="language-plaintext highlighter-rouge">pacphysics_axioms(...)</code>, which you wrote in q3. Use <code class="language-plaintext highlighter-rouge">sensorAxioms</code> and <code class="language-plaintext highlighter-rouge">allLegalSuccessorAxioms</code> for localization and mapping, and <code class="language-plaintext highlighter-rouge">SLAMSensorAxioms</code> and <code class="language-plaintext highlighter-rouge">SLAMSuccessorAxioms</code> for SLAM only.</li>
+  <li>Add to KB: Pacman takes action prescribed by <code class="language-plaintext highlighter-rouge">agent.actions[t]</code></li>
+  <li>Get the percepts by calling <code class="language-plaintext highlighter-rouge">agent.getPercepts()</code> and pass the percepts to <code class="language-plaintext highlighter-rouge">fourBitPerceptRules(...)</code> for localization and mapping, or <code class="language-plaintext highlighter-rouge">numAdjWallsPerceptRules(...)</code> for SLAM. Add the resulting <code class="language-plaintext highlighter-rouge">percept_rules</code> to KB.</li>
+</ul>
+<h3 id="find-possible-pacman-locations-with-updated-kb">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-possible-pacman-locations-with-updated-kb" class="anchor-heading" aria-labelledby="find-possible-pacman-locations-with-updated-kb"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Find possible pacman locations with updated KB
+  
+  
+</h3>
+    
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">possible_locations = []</code></li>
+  <li>Iterate over <code class="language-plaintext highlighter-rouge">non_outer_wall_coords</code>.
+    <ul>
+      <li>Can we prove whether Pacman is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>? Can we prove whether Pacman is not at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>? Use <code class="language-plaintext highlighter-rouge">entails</code> and the KB.</li>
+      <li>If there exists a satisfying assignment where Pacman is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>, add <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> to <code class="language-plaintext highlighter-rouge">possible_locations</code>.</li>
+      <li>Add to KB: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> locations where Pacman is provably at, at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+      <li>Add to KB: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> locations where Pacman is provably not at, at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+      <li><em>Hint</em>: check if the results of <code class="language-plaintext highlighter-rouge">entails</code> contradict each other (i.e. KB entails <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span> and entails <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">¬</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">\neg A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">¬</span><span class="mord mathnormal">A</span></span></span></span></span>). If they do, print feedback to help debugging.</li>
+    </ul>
+  </li>
+</ul>
+<h3 id="find-provable-wall-locations-with-updated-kb">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-provable-wall-locations-with-updated-kb" class="anchor-heading" aria-labelledby="find-provable-wall-locations-with-updated-kb"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Find provable wall locations with updated KB
+  
+  
+</h3>
+    
+
+<ul>
+  <li>Iterate over <code class="language-plaintext highlighter-rouge">non_outer_wall_coords</code>.
+    <ul>
+      <li>Can we prove whether a wall is at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>? Can we prove whether a wall is not at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span>? Use <code class="language-plaintext highlighter-rouge">entails</code> and the KB.</li>
+      <li>Add to KB and update <code class="language-plaintext highlighter-rouge">known_map</code>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> locations where there is provably a wall.</li>
+      <li>Add to KB and update <code class="language-plaintext highlighter-rouge">known_map</code>: <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> locations where there is provably not a wall.</li>
+      <li><em>Hint</em>: check if the results of <code class="language-plaintext highlighter-rouge">entails</code> contradict each other (i.e. KB entails <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span> and entails <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">¬</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">\neg A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">¬</span><span class="mord mathnormal">A</span></span></span></span></span>). If they do, print feedback to help debugging.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Observation: we add known Pacman locations and walls to KB so that we don’t have to redo the work of finding this on later timesteps; this is technically redundant information since we proved it using the KB in the first place.</p><hr>
+<h2 id="q6-4-points-localization">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q6-4-points-localization" class="anchor-heading" aria-labelledby="q6-4-points-localization"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q6 (4 points): Localization
+  
+  
+</h2>
+    
+
+<p>Pacman starts with a known map, but unknown starting location. It has a 4-bit sensor that returns whether there is a wall in its NSEW directions. For example, 1001 means there is a wall to pacman’s North and West directions, and these 4-bits are represented using a list with 4 booleans. By keeping track of these sensor readings and the action it took at each timestep, Pacman is able to pinpoint its location. You will code up the sentences that help Pacman determine the possible locations it can be at each timestep by implementing:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">localization(problem, agent)</code>: Given an instance of <code class="language-plaintext highlighter-rouge">logicPlan.LocalizationProblem</code> and an instance of <code class="language-plaintext highlighter-rouge">logicAgents.LocalizationLogicAgent</code>, repeatedly yields for timesteps <code class="language-plaintext highlighter-rouge">t</code> between <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">agent.num_steps-1</code> a list of possible locations <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x_i, y_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>: <code class="language-plaintext highlighter-rouge">[(x_0_0, y_0_0), (x_1_0, y_1_0), ...]</code>. Note that you don’t need to worry about how generators work as that line is already written for you.</li>
+</ul>
+
+<p>For Pacman to make use of sensor information during localization, you will use two methods already implemented for you. <code class="language-plaintext highlighter-rouge">sensorAxioms</code> – i.e. <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi>l</mi><mi>o</mi><mi>c</mi><mi>k</mi><mi>e</mi><mi>d</mi><mo stretchy="false">[</mo><mi>D</mi><mi>i</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi><mo>↔</mo><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mi>P</mi><mo stretchy="false">[</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>j</mi></msub><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi><mo>∧</mo><mi>W</mi><mi>A</mi><mi>L</mi><mi>L</mi><mo stretchy="false">[</mo><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><mi>d</mi><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mi>j</mi></msub><mo>+</mo><mi>d</mi><mi>y</mi><mo stretchy="false">]</mo><mo stretchy="false">)</mo><mo>∨</mo><mo stretchy="false">(</mo><mi>P</mi><mo stretchy="false">[</mo><msubsup><mi>x</mi><mi>i</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo separator="true">,</mo><msubsup><mi>y</mi><mi>j</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo stretchy="false">]</mo><mi mathvariant="normal">_</mi><mi>t</mi><mo>∧</mo><mi>W</mi><mi>A</mi><mi>L</mi><mi>L</mi><mo stretchy="false">[</mo><msubsup><mi>x</mi><mi>i</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>+</mo><mi>d</mi><mi>x</mi><mo separator="true">,</mo><msubsup><mi>y</mi><mi>j</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>+</mo><mi>d</mi><mi>y</mi><mo stretchy="false">]</mo><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">Blocked[Direction]\_ t \leftrightarrow [(P[x_i, y_j]\_ t \land WALL[x_i+dx, y_j+dy]) \lor (P[x_i', y_j']\_ t \land WALL[x_i'+dx, y_j'+dy]) ... ]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.0197em;">Bl</span><span class="mord mathnormal">oc</span><span class="mord mathnormal" style="margin-right: 0.0315em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right: 0.0278em;">D</span><span class="mord mathnormal">i</span><span class="mord mathnormal">rec</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">↔</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mopen">[(</span><span class="mord mathnormal" style="margin-right: 0.1389em;">P</span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0572em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2861em;"><span class=""></span></span></span></span></span></span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="mord mathnormal">A</span><span class="mord mathnormal">LL</span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.9805em; vertical-align: -0.2861em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3117em;"><span class="" style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0572em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2861em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">])</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1.1467em; vertical-align: -0.3948em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.1389em;">P</span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.7519em;"><span class="" style="top: -2.4413em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2587em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.7519em;"><span class="" style="top: -2.4413em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0572em;">j</span></span></span><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.3948em;"><span class=""></span></span></span></span></span></span><span class="mclose">]</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1.0106em; vertical-align: -0.2587em;"></span><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="mord mathnormal">A</span><span class="mord mathnormal">LL</span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.7519em;"><span class="" style="top: -2.4413em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2587em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1.1467em; vertical-align: -0.3948em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.7519em;"><span class="" style="top: -2.4413em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0572em;">j</span></span></span><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.3948em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">])</span><span class="mord">...</span><span class="mclose">]</span></span></span></span></span> – and <code class="language-plaintext highlighter-rouge">fourBitPerceptRules</code>, which translate the percepts at time <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> into logic sentences.</p>
+
+<p>Please implement the function according to our pseudocode:</p>
+
+<ul>
+  <li>Add to KB: where the walls are (<code class="language-plaintext highlighter-rouge">walls_list</code>) and aren’t (not in <code class="language-plaintext highlighter-rouge">walls_list</code>).</li>
+  <li>for t in range(<code class="language-plaintext highlighter-rouge">agent.num_timesteps</code>):
+    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#add-pacphysics-action-and-percept-information-to-kb">Add pacphysics, action, and percept information to KB</a>.</li>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-possible-pacman-locations-with-updated-kb">Find possible pacman locations with updated KB</a>.</li>
+      <li>Call <code class="language-plaintext highlighter-rouge">agent.moveToNextState(action_t)</code> on the current agent action at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+      <li><code class="language-plaintext highlighter-rouge">yield</code> the possible locations.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Note on display: the yellow Pacman is where he is at the time that’s currently being calculated, so possible locations and known walls and free spaces are from the previous timestep.</p>
+
+<p>To test and debug your code run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q6
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="q7-3-points-mapping">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q7-3-points-mapping" class="anchor-heading" aria-labelledby="q7-3-points-mapping"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q7 (3 points): Mapping
+  
+  
+</h2>
+    
+
+<p>Pacman now knows his starting location, but does not know where the walls are (other than the fact that the border of outer coordinates are walls). Similar to localization, it has a 4-bit sensor that returns whether there is a wall in its NSEW directions. You will code up the sentences that help Pacman determine the location of the walls by implementing:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">mapping(problem, agent)</code>: Given an instance of <code class="language-plaintext highlighter-rouge">logicPlan.MappingProblem</code> and an instance of <code class="language-plaintext highlighter-rouge">logicAgents.MappingLogicAgent</code>, repeatedly yields for timesteps <code class="language-plaintext highlighter-rouge">t</code> between <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">agent.num_steps-1</code> knowledge about the map <code class="language-plaintext highlighter-rouge">[[1, 1, 1, 1], [1, -1, 0, 0], ... ]</code> at <code class="language-plaintext highlighter-rouge">t</code>. Note that you don’t need to worry about how generators work as that line is already written for you.</li>
+  <li><code class="language-plaintext highlighter-rouge">known_map</code>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">known_map</code> is a 2D-array (list of lists) of size <code class="language-plaintext highlighter-rouge">(problem.getWidth()+2, problem.getHeight()+2)</code>, because we have walls around the problem.</li>
+      <li>Each entry of <code class="language-plaintext highlighter-rouge">known_map</code> is <code class="language-plaintext highlighter-rouge">1</code> if <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> is guaranteed to be a wall at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>, <code class="language-plaintext highlighter-rouge">0</code> if <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> is guaranteed to not be a wall, and <code class="language-plaintext highlighter-rouge">-1</code> if <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> is still ambiguous at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+      <li>Ambiguity results when one cannot prove that <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> is a wall and one cannot prove that <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x, y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">y</span><span class="mclose">)</span></span></span></span></span> is not a wall.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Please implement the function according to our pseudocode:</p>
+
+<ul>
+  <li>Get initial location <code class="language-plaintext highlighter-rouge">(pac_x_0, pac_y_0)</code> of Pacman, and add this to KB. Also add whether there is a wall at that location.</li>
+  <li>for t in range(<code class="language-plaintext highlighter-rouge">agent.num_timesteps</code>):
+    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#add-pacphysics-action-and-percept-information-to-kb">Add pacphysics, action, and percept information to KB</a>.</li>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-provable-wall-locations-with-updated-kb">Find provable wall locations with updated KB</a>.</li>
+      <li>Call <code class="language-plaintext highlighter-rouge">agent.moveToNextState(action_t)</code> on the current agent action at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+      <li><code class="language-plaintext highlighter-rouge">yield known_map</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>To test and debug your code run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q7
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="q8-4-points-slam">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#q8-4-points-slam" class="anchor-heading" aria-labelledby="q8-4-points-slam"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q8 (4 points): SLAM
+  
+  
+</h2>
+    
+
+<p>Sometimes Pacman is just really lost and in the dark at the same time. In SLAM (Simultaneous Localization and Mapping), Pacman knows his initial coordinates, but does not know where the walls are. In SLAM, Pacman may inadvertently take illegal actions (for example, going North when there is a wall blocking that action), which will add to the uncertainty of Pacman’s location over time. Additionally, in our setup of SLAM, Pacman no longer has a 4 bit sensor that tells us whether there is a wall in the four directions, but only has a 3-bit sensor that reveals the number of walls he is adjacent to. This is sort of like wifi signal-strength bars; 000 = not adjacent to any wall; 100 = adjacent to exactly 1 wall; 110 = adjacent to exactly 2 walls; 111 = adjacent to exactly 3 walls. These 3 bits are represented by a list of 3 booleans. Thus, instead of using <code class="language-plaintext highlighter-rouge">sensorAxioms</code> and <code class="language-plaintext highlighter-rouge">fourBitPerceptRules</code>, you will use <code class="language-plaintext highlighter-rouge">SLAMSensorAxioms</code> and <code class="language-plaintext highlighter-rouge">numAdjWallsPerceptRules</code>. You will code up the sentences that help Pacman determine (1) his possible locations at each timestep, and (2) the location of the walls, by implementing:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">slam(problem, agent)</code>: Given an instance of <code class="language-plaintext highlighter-rouge">logicPlan.SLAMProblem</code> and <code class="language-plaintext highlighter-rouge">logicAgents.SLAMLogicAgent</code>, repeatedly yields a tuple of two items:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">known_map</code> at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> (of the same format as in question 6 (mapping))</li>
+      <li>list of possible pacman locations at <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span> (of the same format as in question 5 (localization))</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To pass the autograder, please implement the function according to our pseudocode:</p>
+
+<ul>
+  <li>Get initial location <code class="language-plaintext highlighter-rouge">(pac_x_0, pac_y_0)</code> of Pacman, and add this to KB. Update <code class="language-plaintext highlighter-rouge">known_map</code> accordingly and add the appropriate expression to KB.</li>
+  <li>for t in range(<code class="language-plaintext highlighter-rouge">agent.num_timesteps</code>):
+    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#add-pacphysics-action-and-percept-information-to-kb">Add pacphysics, action, and percept information to KB</a>. Use <code class="language-plaintext highlighter-rouge">SLAMSensorAxioms</code>, <code class="language-plaintext highlighter-rouge">SLAMSuccessorAxioms</code>, and <code class="language-plaintext highlighter-rouge">numAdjWallsPerceptRules</code>.</li>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-provable-wall-locations-with-updated-kb">Find provable wall locations with updated KB</a>.</li>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#find-possible-pacman-locations-with-updated-kb">Find possible pacman locations with updated KB</a>.</li>
+      <li>Call <code class="language-plaintext highlighter-rouge">agent.moveToNextState(action_t)</code> on the current agent action at timestep <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span></span>.</li>
+      <li><code class="language-plaintext highlighter-rouge">yield known_map, possible_locations</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p>To test and debug your code run (note: this is slow, staff solution takes 3.5 minutes to run to completion on a good laptop processor):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q8
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="submission">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/#submission" class="anchor-heading" aria-labelledby="submission"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission
+  
+  
+</h2>
+    
+
+<p>In order to submit your project upload the Python files you edited. For instance, use Gradescope’s upload on all <code class="language-plaintext highlighter-rouge">.py</code> files in the project folder.</p>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="./Project 3 _ CS 188 Spring 2024_files/jquery.min.js.下载"></script>
+<!--
+June 2024 - looks like the copy button got merged, bless
+https://just-the-docs.com/docs/ui-components/code/#copy-button
+
+<script src="/~cs188/sp24/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="./Project 3 _ CS 188 Spring 2024_files/tocbot.min.js.下载"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+
+
+
+</body></html>

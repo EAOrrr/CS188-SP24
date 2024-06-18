@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="./Project 2 _ CS 188 Spring 2024_files/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="./Project 2 _ CS 188 Spring 2024_files/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet" disabled="">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(3)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(3) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(6) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(3) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list > li.nav-list-item:nth-child(3) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="./Project 2 _ CS 188 Spring 2024_files/lunr.min.js.下载"></script>
+  
+
+  <script src="./Project 2 _ CS 188 Spring 2024_files/just-the-docs.js.下载"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="https://inst.eecs.berkeley.edu/~cs188/sp24/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Project 2 | CS 188 Spring 2024</title>
+<meta name="generator" content="Jekyll v3.9.5">
+<meta property="og:title" content="Project 2">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Project 3 spec.">
+<meta property="og:description" content="Project 3 spec.">
+<link rel="canonical" href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/">
+<meta property="og:url" content="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/">
+<meta property="og:site_name" content="CS 188 Spring 2024">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Project 2">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Project 3 spec.","headline":"Project 2","url":"https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/css/just-the-docs-dark.css" as="style">
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="./Project 2 _ CS 188 Spring 2024_files/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="./Project 2 _ CS 188 Spring 2024_files/katex.min.css">
+<script defer="" src="./Project 2 _ CS 188 Spring 2024_files/katex.min.js.下载"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer="" src="./Project 2 _ CS 188 Spring 2024_files/auto-render.min.js.下载" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"></path>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"></path>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"></path>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"></path>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  <div class="side-bar">
+  <div class="site-header" role="banner">
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/" class="site-title lh-tight">
+  CS 188 Spring 2024
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/exam/" class="nav-list-link">Exam Logistics</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/calendar/" class="nav-list-link">Calendar</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/policies/" class="nav-list-link">Policies</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/resources/" class="nav-list-link">Resources</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/staff/" class="nav-list-link">Staff</a>
+  </li><li class="nav-list-item active"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/" class="nav-list-link">Project 0</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj1/" class="nav-list-link">Project 1</a>
+        </li><li class="nav-list-item active"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a class="nav-list-link active">Project 2</a>
+            <ul class="nav-list js-toc"><ol class="nav-list "><li class="nav-list-item active"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#introduction" class="nav-list-link node-name--H2  active">Introduction</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#welcome-to-multi-agent-pacman" class="nav-list-link node-name--H2 ">Welcome to Multi-Agent Pacman</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q1-4-pts-reflex-agent" class="nav-list-link node-name--H2 ">Q1 (4 pts): Reflex Agent</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q2-5-pts-minimax" class="nav-list-link node-name--H2 ">Q2 (5 pts): Minimax</a><ol class="nav-list "><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#hints-and-observations" class="nav-list-link node-name--H3 ">Hints and Observations</a></li></ol></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q3-5-pts-alpha-beta-pruning" class="nav-list-link node-name--H2 ">Q3 (5 pts): Alpha-Beta Pruning</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q4-5-pts-expectimax" class="nav-list-link node-name--H2 ">Q4 (5 pts): Expectimax</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q5-6-pts-evaluation-function" class="nav-list-link node-name--H2 ">Q5 (6 pts): Evaluation Function</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#submission" class="nav-list-link node-name--H2 ">Submission</a></li></ol></ul>
+          
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/" class="nav-list-link">Project 3</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj4/" class="nav-list-link">Project 4</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj5/" class="nav-list-link">Project 5</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj6/" class="nav-list-link">Project 6</a>
+        </li></ul>
+  </li></ul>
+
+  
+</nav>
+
+
+  
+  
+    <footer class="site-footer">
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+  
+</div>
+
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search CS 188 Spring 2024" aria-label="Search CS 188 Spring 2024" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#" class="site-button">
+          Dark Mode
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://edstem.org/us/courses/53090" class="site-button">
+          Ed
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://cs188-oh.apps.cs61a.org/" class="site-button">
+          OH Queue
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIVsw-XMblea5a1mbamHeFLql20eTVE8HmNJzKXU_JzHtl2g/viewform" class="site-button">
+          Extensions Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTblOdJkV-8iQaM7-V5B9mBKElbn5zmb2Ovdpp5r7Y9I3IFQ/viewform" class="site-button">
+          Attendance Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaKOOcAjG3KXTalojLnT-7n9rg7rHTqP8K_7DvrKN5O73PTQ/viewform" class="site-button">
+          Discussion Attendance Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdHvjOKF9NnH8qKjkdQzLdedPC6nDXXpsQHe5ByccvcYraweA/viewform" class="site-button">
+          Feedback Form
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/">Projects</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Project 2</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="project-2-multi-agent-search">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#project-2-multi-agent-search" class="anchor-heading" aria-labelledby="project-2-multi-agent-search"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Project 2: Multi-Agent Search
+  
+  
+</h1>
+    
+
+<div style="text-align:center;">
+Due: <b>Friday, Feb 16, 11:59 PM PT</b>.
+</div><hr>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;width:400px" alt="Pacman chased by ghosts" src="./Project 2 _ CS 188 Spring 2024_files/pacman_multi_agent.png"></p>
+
+<div style="text-align:center;">
+Pacman, now with ghosts.<br>
+Minimax, Expectimax,<br>
+Evaluation
+</div><hr>
+<h2 class="no_toc text-delta" id="table-of-contents">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#table-of-contents" class="anchor-heading" aria-labelledby="table-of-contents"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Table of contents
+  
+  
+</h2>
+    
+
+<ul id="markdown-toc">
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#welcome-to-multi-agent-pacman" id="markdown-toc-welcome-to-multi-agent-pacman">Welcome to Multi-Agent Pacman</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q1-4-pts-reflex-agent" id="markdown-toc-q1-4-pts-reflex-agent">Q1 (4 pts): Reflex Agent</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q2-5-pts-minimax" id="markdown-toc-q2-5-pts-minimax">Q2 (5 pts): Minimax</a>    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#hints-and-observations" id="markdown-toc-hints-and-observations">Hints and Observations</a></li>
+    </ul>
+  </li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q3-5-pts-alpha-beta-pruning" id="markdown-toc-q3-5-pts-alpha-beta-pruning">Q3 (5 pts): Alpha-Beta Pruning</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q4-5-pts-expectimax" id="markdown-toc-q4-5-pts-expectimax">Q4 (5 pts): Expectimax</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q5-6-pts-evaluation-function" id="markdown-toc-q5-6-pts-evaluation-function">Q5 (6 pts): Evaluation Function</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#submission" id="markdown-toc-submission">Submission</a></li>
+</ul><hr>
+<h2 id="introduction">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>In this project, you will design agents for the classic version of Pacman, including ghosts. Along the way, you will implement both minimax and expectimax search and try your hand at evaluation function design.</p>
+
+<p>The code base has not changed much from the previous project, but please start with a fresh installation, rather than intermingling files from project 1.</p>
+
+<p>As in project 1, this project includes an autograder for you to grade your answers on your machine. This can be run on all questions with the command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>It can be run for one particular question, such as q2, by:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q2
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>It can be run for one particular test by commands of the form:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-t</span> test_cases/q2/0-small-tree
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>By default, the autograder displays graphics with the <code class="language-plaintext highlighter-rouge">-t</code> option, but doesn’t with the <code class="language-plaintext highlighter-rouge">-q</code> option. You can force graphics by using the <code class="language-plaintext highlighter-rouge">--graphics</code> flag, or force no graphics by using the <code class="language-plaintext highlighter-rouge">--no-graphics</code> flag.</p>
+
+<p>See the autograder tutorial in Project 0 for more information about using the autograder.</p>
+
+<p>The code for this project contains the following files, available as a <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/projects/multiagent.zip">zip archive</a>.</p>
+
+<div class="table-wrapper"><table>
+    <tbody>
+      <tr>
+        <td colspan="2"><b>Files you'll edit:</b></td>
+      </tr>
+      <tr>
+        <td><code>multiAgents.py</code></td>
+        <td>Where all of your multi-agent search agents will reside.</td>
+      </tr>
+      <tr>
+        <td colspan="2"><b>Files you might want to look at:</b></td>
+      </tr>
+      <tr>
+        <td><code>pacman.py</code></td>
+        <td>The main file that runs Pacman games. This file also describes a Pacman GameState type, which you will use extensively in this project.</td>
+      </tr>
+      <tr>
+        <td><code>game.py</code></td>
+        <td>The logic behind how the Pacman world works. This file describes several supporting types like AgentState, Agent, Direction, and Grid.</td>
+      </tr>
+      <tr>
+        <td><code>util.py</code></td>
+        <td>Useful data structures for implementing search algorithms. You don't need to use these for this project, but may find other functions defined here to be useful.</td>
+      </tr>
+      <tr>
+        <td colspan="2"><b>Supporting files you can ignore:</b></td>
+      </tr>
+      <tr>
+        <td><code>graphicsDisplay.py</code></td>
+        <td>Graphics for Pacman</td>
+      </tr>
+      <tr>
+        <td><code>graphicsUtils.py</code></td>
+        <td>Support for Pacman graphics</td>
+      </tr>
+      <tr>
+        <td><code>textDisplay.py</code></td>
+        <td>ASCII graphics for Pacman</td>
+      </tr>
+      <tr>
+        <td><code>ghostAgents.py</code></td>
+        <td>Agents to control ghosts</td>
+      </tr>
+      <tr>
+        <td><code>keyboardAgents.py</code></td>
+        <td>Keyboard interfaces to control Pacman</td>
+      </tr>
+      <tr>
+        <td><code>layout.py</code></td>
+        <td>Code for reading layout files and storing their contents</td>
+      </tr>
+      <tr>
+        <td><code>autograder.py</code></td>
+        <td>Project autograder</td>
+      </tr>
+      <tr>
+        <td><code>testParser.py</code></td>
+        <td>Parses autograder test and solution files</td>
+      </tr>
+      <tr>
+        <td><code>testClasses.py</code></td>
+        <td>General autograding test classes</td>
+      </tr>
+      <tr>
+        <td><code>test_cases/</code></td>
+        <td>Directory containing the test cases for each question</td>
+      </tr>
+      <tr>
+        <td class="fit"><code>multiagentTestClasses.py</code></td>
+        <td>Project 3 specific autograding test classes</td>
+      </tr>
+    </tbody>
+</table></div>
+
+<p><strong>Files to Edit and Submit</strong>: You will fill in portions of <code class="language-plaintext highlighter-rouge">multiAgents.py</code> during the assignment. Once you have completed the assignment, you will submit these files to Gradescope (for instance, you can upload all <code class="language-plaintext highlighter-rouge">.py</code> files in the folder). Please do not change the other files in this distribution.</p>
+
+<p><strong>Evaluation</strong>: Your code will be autograded for technical correctness. Please do not change the names of any provided functions or classes within the code, or you will wreak havoc on the autograder. However, the correctness of your implementation – not the autograder’s judgements – will be the final judge of your score. If necessary, we will review and grade assignments individually to ensure that you receive due credit for your work.</p>
+
+<p><strong>Academic Dishonesty</strong>: We will be checking your code against other submissions in the class for logical redundancy. If you copy someone else’s code and submit it with minor changes, we will know. These cheat detectors are quite hard to fool, so please don’t try. We trust you all to submit your own work only; please don’t let us down. If you do, we will pursue the strongest consequences available to us.</p>
+
+<p><strong>Getting Help</strong>: You are not alone! If you find yourself stuck on something, contact the course staff for help. Office hours, section, and the discussion forum are there for your support; please use them. If you can’t make our office hours, let us know and we will schedule more. We want these projects to be rewarding and instructional, not frustrating and demoralizing. But, we don’t know when or how to help unless you ask.</p>
+
+<p><strong>Discussion</strong>: Please be careful not to post spoilers.</p><hr>
+<h2 id="welcome-to-multi-agent-pacman">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#welcome-to-multi-agent-pacman" class="anchor-heading" aria-labelledby="welcome-to-multi-agent-pacman"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Welcome to Multi-Agent Pacman
+  
+  
+</h2>
+    
+
+<p>First, play a game of classic Pacman by running the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>and using the arrow keys to move. Now, run the provided ReflexAgent in multiAgents.py</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-p</span> ReflexAgent
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Note that it plays quite poorly even on simple layouts:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-p</span> ReflexAgent <span class="nt">-l</span> testClassic
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Inspect its code (in <code class="language-plaintext highlighter-rouge">multiAgents.py</code>) and make sure you understand what it’s doing.</p><hr>
+<h2 id="q1-4-pts-reflex-agent">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q1-4-pts-reflex-agent" class="anchor-heading" aria-labelledby="q1-4-pts-reflex-agent"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q1 (4 pts): Reflex Agent
+  
+  
+</h2>
+    
+
+<p>Improve the <code class="language-plaintext highlighter-rouge">ReflexAgent</code> in <code class="language-plaintext highlighter-rouge">multiAgents.py</code> to play respectably. The provided reflex agent code provides some helpful examples of methods that query the <code class="language-plaintext highlighter-rouge">GameState</code> for information. A capable reflex agent will have to consider both food locations and ghost locations to perform well. Your agent should easily and reliably clear the <code class="language-plaintext highlighter-rouge">testClassic</code> layout:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-p</span> ReflexAgent <span class="nt">-l</span> testClassic
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Try out your reflex agent on the default <code class="language-plaintext highlighter-rouge">mediumClassic</code> layout with one ghost or two (and animation off to speed up the display):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">--frameTime</span> 0 <span class="nt">-p</span> ReflexAgent <span class="nt">-k</span> 1
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">--frameTime</span> 0 <span class="nt">-p</span> ReflexAgent <span class="nt">-k</span> 2
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>How does your agent fare? It will likely often die with 2 ghosts on the default board, unless your evaluation function is quite good.</p>
+
+<p><em>Note</em>: Remember that <code class="language-plaintext highlighter-rouge">newFood</code> has the function <code class="language-plaintext highlighter-rouge">asList()</code></p>
+
+<p><em>Note</em>: As features, try the reciprocal of important values (such as distance to food) rather than just the values themselves.</p>
+
+<p><em>Note</em>: The evaluation function you’re writing is evaluating state-action pairs; in later parts of the project, you’ll be evaluating states.</p>
+
+<p><em>Note</em>: You may find it useful to view the internal contents of various objects for debugging. You can do this by printing the objects’ string representations. For example, you can print <code class="language-plaintext highlighter-rouge">newGhostStates</code> with <code class="language-plaintext highlighter-rouge">print(newGhostStates)</code>.</p>
+
+<p>Options: Default ghosts are random; you can also play for fun with slightly smarter directional ghosts using <code class="language-plaintext highlighter-rouge">-g DirectionalGhost</code>. If the randomness is preventing you from telling whether your agent is improving, you can use <code class="language-plaintext highlighter-rouge">-f</code> to run with a fixed random seed (same random choices every game). You can also play multiple games in a row with <code class="language-plaintext highlighter-rouge">-n</code>. Turn off graphics with <code class="language-plaintext highlighter-rouge">-q</code> to run lots of games quickly.</p>
+
+<p><em>Grading</em>: We will run your agent on the <code class="language-plaintext highlighter-rouge">openClassic</code> layout 10 times. You will receive 0 points if your agent times out, or never wins. You will receive 1 point if your agent wins at least 5 times, or 2 points if your agent wins all 10 games. You will receive an additional 1 point if your agent’s average score is greater than 500, or 2 points if it is greater than 1000. You can try your agent out under these conditions with</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q1
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>To run it without graphics, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q1 <span class="nt">--no-graphics</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Don’t spend too much time on this question, though, as the meat of the project lies ahead.</p><hr>
+<h2 id="q2-5-pts-minimax">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q2-5-pts-minimax" class="anchor-heading" aria-labelledby="q2-5-pts-minimax"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q2 (5 pts): Minimax
+  
+  
+</h2>
+    
+
+<p>Now you will write an adversarial search agent in the provided <code class="language-plaintext highlighter-rouge">MinimaxAgent</code> class stub in <code class="language-plaintext highlighter-rouge">multiAgents.py</code>. Your minimax agent should work with any number of ghosts, so you’ll have to write an algorithm that is slightly more general than what you’ve previously seen in lecture. In particular, your minimax tree will have multiple min layers (one for each ghost) for every max layer.</p>
+
+<p>Your code should also expand the game tree to an arbitrary depth. Score the leaves of your minimax tree with the supplied <code class="language-plaintext highlighter-rouge">self.evaluationFunction</code>, which defaults to <code class="language-plaintext highlighter-rouge">scoreEvaluationFunction</code>. <code class="language-plaintext highlighter-rouge">MinimaxAgent</code> extends <code class="language-plaintext highlighter-rouge">MultiAgentSearchAgent</code>, which gives access to <code class="language-plaintext highlighter-rouge">self.depth</code> and <code class="language-plaintext highlighter-rouge">self.evaluationFunction</code>. Make sure your minimax code makes reference to these two variables where appropriate as these variables are populated in response to command line options.</p>
+
+<p><em>Important</em>: A single search ply is considered to be one Pacman move and all the ghosts’ responses, so depth 2 search will involve Pacman and each ghost moving two times (see diagram below).</p>
+
+<p><img src="./Project 2 _ CS 188 Spring 2024_files/minimax_depth.png" alt="Minimax tree with depth 2"></p>
+
+<p><em>Grading</em>: We will be checking your code to determine whether it explores the correct number of game states. This is the only reliable way to detect some very subtle bugs in implementations of minimax. As a result, the autograder will be very picky about how many times you call <code class="language-plaintext highlighter-rouge">GameState.generateSuccessor</code>. If you call it any more or less than necessary, the autograder will complain. To test and debug your code, run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q2
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>This will show what your algorithm does on a number of small trees, as well as a pacman game. To run it without graphics, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q2 <span class="nt">--no-graphics</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+<h3 id="hints-and-observations">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#hints-and-observations" class="anchor-heading" aria-labelledby="hints-and-observations"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Hints and Observations
+  
+  
+</h3>
+    
+
+<ul>
+  <li>Implement the algorithm recursively using helper function(s).</li>
+  <li>The correct implementation of minimax will lead to Pacman losing the game in some tests. This is not a problem: as it is correct behaviour, it will pass the tests.</li>
+  <li>The evaluation function for the Pacman test in this part is already written (<code class="language-plaintext highlighter-rouge">self.evaluationFunction</code>). You shouldn’t change this function, but recognize that now we’re evaluating states rather than actions, as we were for the reflex agent. Look-ahead agents evaluate future states whereas reflex agents evaluate actions from the current state.</li>
+  <li>The minimax values of the initial state in the <code class="language-plaintext highlighter-rouge">minimaxClassic</code> layout are 9, 8, 7, -492 for depths 1, 2, 3 and 4 respectively. Note that your minimax agent will often win (665/1000 games for us) despite the dire prediction of depth 4 minimax.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  python pacman.py <span class="nt">-p</span> MinimaxAgent <span class="nt">-l</span> minimaxClassic <span class="nt">-a</span> <span class="nv">depth</span><span class="o">=</span>4
+</code></pre></div>    <button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+  </li>
+  <li>Pacman is always agent 0, and the agents move in order of increasing agent index.</li>
+  <li>All states in minimax should be <code class="language-plaintext highlighter-rouge">GameStates</code>, either passed in to <code class="language-plaintext highlighter-rouge">getAction</code> or generated via <code class="language-plaintext highlighter-rouge">GameState.generateSuccessor</code>. In this project, you will not be abstracting to simplified states.</li>
+  <li>On larger boards such as <code class="language-plaintext highlighter-rouge">openClassic</code> and <code class="language-plaintext highlighter-rouge">mediumClassic</code> (the default), you’ll find Pacman to be good at not dying, but quite bad at winning. He’ll often thrash around without making progress. He might even thrash around right next to a dot without eating it because he doesn’t know where he’d go after eating that dot. Don’t worry if you see this behavior, question 5 will clean up all of these issues.</li>
+  <li>When Pacman believes that his death is unavoidable, he will try to end the game as soon as possible because of the constant penalty for living. Sometimes, this is the wrong thing to do with random ghosts, but minimax agents always assume the worst:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  python pacman.py <span class="nt">-p</span> MinimaxAgent <span class="nt">-l</span> trappedClassic <span class="nt">-a</span> <span class="nv">depth</span><span class="o">=</span>3
+</code></pre></div>    <button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+    <p>Make sure you understand why Pacman rushes the closest ghost in this case.</p>
+  </li>
+</ul><hr>
+<h2 id="q3-5-pts-alpha-beta-pruning">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q3-5-pts-alpha-beta-pruning" class="anchor-heading" aria-labelledby="q3-5-pts-alpha-beta-pruning"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q3 (5 pts): Alpha-Beta Pruning
+  
+  
+</h2>
+    
+
+<p>Make a new agent that uses alpha-beta pruning to more efficiently explore the minimax tree, in <code class="language-plaintext highlighter-rouge">AlphaBetaAgent</code>. Again, your algorithm will be slightly more general than the pseudocode from lecture, so part of the challenge is to extend the alpha-beta pruning logic appropriately to multiple minimizer agents.</p>
+
+<p>You should see a speed-up (perhaps depth 3 alpha-beta will run as fast as depth 2 minimax). Ideally, depth 3 on <code class="language-plaintext highlighter-rouge">smallClassic</code> should run in just a few seconds per move or faster.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-p</span> AlphaBetaAgent <span class="nt">-a</span> <span class="nv">depth</span><span class="o">=</span>3 <span class="nt">-l</span> smallClassic
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">AlphaBetaAgent</code> minimax values should be identical to the <code class="language-plaintext highlighter-rouge">MinimaxAgent</code> minimax values, although the actions it selects can vary because of different tie-breaking behavior. Again, the minimax values of the initial state in the <code class="language-plaintext highlighter-rouge">minimaxClassic</code> layout are 9, 8, 7 and -492 for depths 1, 2, 3 and 4 respectively.</p>
+
+<p><em>Grading</em>: Because we check your code to determine whether it explores the correct number of states, it is important that you perform alpha-beta pruning without reordering children. In other words, successor states should always be processed in the order returned by <code class="language-plaintext highlighter-rouge">GameState.getLegalActions</code>. Again, do not call <code class="language-plaintext highlighter-rouge">GameState.generateSuccessor</code> more than necessary.</p>
+
+<p><strong>You must not prune on equality in order to match the set of states explored by our autograder.</strong> (Indeed, alternatively, but incompatible with our autograder, would be to also allow for pruning on equality and invoke alpha-beta once on each child of the root node, but this will not match the autograder.)</p>
+
+<p>The pseudo-code below represents the algorithm you should implement for this question.</p>
+
+<p><img src="./Project 2 _ CS 188 Spring 2024_files/alpha_beta_impl.png" alt="Alpha-Beta Implementation"></p>
+
+<p>To test and debug your code, run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q3
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>This will show what your algorithm does on a number of small trees, as well as a pacman game. To run it without graphics, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q3 <span class="nt">--no-graphics</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>The correct implementation of alpha-beta pruning will lead to Pacman losing some of the tests. This is not a problem: as it is correct behaviour, it will pass the tests.</p><hr>
+<h2 id="q4-5-pts-expectimax">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q4-5-pts-expectimax" class="anchor-heading" aria-labelledby="q4-5-pts-expectimax"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q4 (5 pts): Expectimax
+  
+  
+</h2>
+    
+
+<p>Minimax and alpha-beta are great, but they both assume that you are playing against an adversary who makes optimal decisions. As anyone who has ever won tic-tac-toe can tell you, this is not always the case. In this question you will implement the <code class="language-plaintext highlighter-rouge">ExpectimaxAgent</code>, which is useful for modeling probabilistic behavior of agents who may make suboptimal choices.</p>
+
+<p>As with the search and problems yet to be covered in this class, the beauty of these algorithms is their general applicability. To expedite your own development, we’ve supplied some test cases based on generic trees. You can debug your implementation on small the game trees using the command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q4
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Debugging on these small and manageable test cases is recommended and will help you to find bugs quickly.</p>
+
+<p>Once your algorithm is working on small trees, you can observe its success in Pacman. Random ghosts are of course not optimal minimax agents, and so modeling them with minimax search may not be appropriate. <code class="language-plaintext highlighter-rouge">ExpectimaxAgent</code> will no longer take the min over all ghost actions, but the expectation according to your agent’s model of how the ghosts act. To simplify your code, assume you will only be running against an adversary which chooses amongst their <code class="language-plaintext highlighter-rouge">getLegalActions</code> uniformly at random.</p>
+
+<p>To see how the ExpectimaxAgent behaves in Pacman, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-p</span> ExpectimaxAgent <span class="nt">-l</span> minimaxClassic <span class="nt">-a</span> <span class="nv">depth</span><span class="o">=</span>3
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>You should now observe a more cavalier approach in close quarters with ghosts. In particular, if Pacman perceives that he could be trapped but might escape to grab a few more pieces of food, he’ll at least try. Investigate the results of these two scenarios:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-p</span> AlphaBetaAgent <span class="nt">-l</span> trappedClassic <span class="nt">-a</span> <span class="nv">depth</span><span class="o">=</span>3 <span class="nt">-q</span> <span class="nt">-n</span> 10
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python pacman.py <span class="nt">-p</span> ExpectimaxAgent <span class="nt">-l</span> trappedClassic <span class="nt">-a</span> <span class="nv">depth</span><span class="o">=</span>3 <span class="nt">-q</span> <span class="nt">-n</span> 10
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>You should find that your <code class="language-plaintext highlighter-rouge">ExpectimaxAgent</code> wins about half the time, while your <code class="language-plaintext highlighter-rouge">AlphaBetaAgent</code> always loses. Make sure you understand why the behavior here differs from the minimax case.</p>
+
+<p>The correct implementation of expectimax will lead to Pacman losing some of the tests. This is not a problem: as it is correct behaviour, it will pass the tests.</p><hr>
+<h2 id="q5-6-pts-evaluation-function">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#q5-6-pts-evaluation-function" class="anchor-heading" aria-labelledby="q5-6-pts-evaluation-function"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q5 (6 pts): Evaluation Function
+  
+  
+</h2>
+    
+
+<p>Write a better evaluation function for Pacman in the provided function <code class="language-plaintext highlighter-rouge">betterEvaluationFunction</code>. The evaluation function should evaluate states, rather than actions like your reflex agent evaluation function did. With depth 2 search, your evaluation function should clear the <code class="language-plaintext highlighter-rouge">smallClassic</code> layout with one random ghost more than half the time and still run at a reasonable rate (to get full credit, Pacman should be averaging around 1000 points when he’s winning).</p>
+
+<p><em>Grading</em>: the autograder will run your agent on the smallClassic layout 10 times. We will assign points to your evaluation function in the following way:</p>
+
+<ul>
+  <li>If you win at least once without timing out the autograder, you receive 1 points. Any agent not satisfying these criteria will receive 0 points.</li>
+  <li>+1 for winning at least 5 times, +2 for winning all 10 times</li>
+  <li>+1 for an average score of at least 500, +2 for an average score of at least 1000 (including scores on lost games)</li>
+  <li>+1 if your games take on average less than 30 seconds on the autograder machine, when run with <code class="language-plaintext highlighter-rouge">--no-graphics</code>.</li>
+  <li>The additional points for average score and computation time will only be awarded if you win at least 5 times.</li>
+  <li>Please do not copy any files from Project 1, as it will not pass the autograder on Gradescope.</li>
+</ul>
+
+<p>You can try your agent out under these conditions with</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q5
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>To run it without graphics, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">-q</span> q5 <span class="nt">--no-graphics</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div><hr>
+<h2 id="submission">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/#submission" class="anchor-heading" aria-labelledby="submission"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission
+  
+  
+</h2>
+    
+
+<p>In order to submit your project upload the Python files you edited. For instance, use Gradescope’s upload on all <code class="language-plaintext highlighter-rouge">.py</code> files in the project folder.</p>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="./Project 2 _ CS 188 Spring 2024_files/jquery.min.js.下载"></script>
+<!--
+June 2024 - looks like the copy button got merged, bless
+https://just-the-docs.com/docs/ui-components/code/#copy-button
+
+<script src="/~cs188/sp24/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="./Project 2 _ CS 188 Spring 2024_files/tocbot.min.js.下载"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+
+
+
+</body></html>

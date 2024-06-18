@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="./Project 0 _ CS 188 Spring 2024_files/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="./Project 0 _ CS 188 Spring 2024_files/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet" disabled="">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(1)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(1) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(6) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(6) > ul > li:nth-child(1) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(6) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="./Project 0 _ CS 188 Spring 2024_files/lunr.min.js.下载"></script>
+  
+
+  <script src="./Project 0 _ CS 188 Spring 2024_files/just-the-docs.js.下载"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="https://inst.eecs.berkeley.edu/~cs188/sp24/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Project 0 | CS 188 Spring 2024</title>
+<meta name="generator" content="Jekyll v3.9.5">
+<meta property="og:title" content="Project 0">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Project 0 spec.">
+<meta property="og:description" content="Project 0 spec.">
+<link rel="canonical" href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/">
+<meta property="og:url" content="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/">
+<meta property="og:site_name" content="CS 188 Spring 2024">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Project 0">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Project 0 spec.","headline":"Project 0","url":"https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/css/just-the-docs-dark.css" as="style">
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="./Project 0 _ CS 188 Spring 2024_files/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="./Project 0 _ CS 188 Spring 2024_files/katex.min.css">
+<script defer="" src="./Project 0 _ CS 188 Spring 2024_files/katex.min.js.下载"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer="" src="./Project 0 _ CS 188 Spring 2024_files/auto-render.min.js.下载" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"></path>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"></path>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"></path>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"></path>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  <div class="side-bar">
+  <div class="site-header" role="banner">
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/" class="site-title lh-tight">
+  CS 188 Spring 2024
+
+</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/exam/" class="nav-list-link">Exam Logistics</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/calendar/" class="nav-list-link">Calendar</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/policies/" class="nav-list-link">Policies</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/resources/" class="nav-list-link">Resources</a>
+  </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/staff/" class="nav-list-link">Staff</a>
+  </li><li class="nav-list-item active"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item active"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a class="nav-list-link active">Project 0</a>
+            <ul class="nav-list js-toc"><ol class="nav-list "><li class="nav-list-item active"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#introduction" class="nav-list-link node-name--H2  active">Introduction</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#python-installation" class="nav-list-link node-name--H2 ">Python Installation</a><ol class="nav-list "><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#dependencies-installation" class="nav-list-link node-name--H3 ">Dependencies installation</a></li></ol></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#workflow-setup-examples" class="nav-list-link node-name--H2 ">Workflow/ Setup Examples</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#python-basics" class="nav-list-link node-name--H2 ">Python Basics</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#autograding" class="nav-list-link node-name--H2 ">Autograding</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q1-addition" class="nav-list-link node-name--H2 ">Q1: Addition</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q2-buylotsoffruit-function" class="nav-list-link node-name--H2 ">Q2: buyLotsOfFruit function</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q3-shopsmart-function" class="nav-list-link node-name--H2 ">Q3: shopSmart function</a></li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#submission" class="nav-list-link node-name--H2 ">Submission</a></li></ol></ul>
+          
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj1/" class="nav-list-link">Project 1</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj2/" class="nav-list-link">Project 2</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj3/" class="nav-list-link">Project 3</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj4/" class="nav-list-link">Project 4</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj5/" class="nav-list-link">Project 5</a>
+        </li><li class="nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj6/" class="nav-list-link">Project 6</a>
+        </li></ul>
+  </li></ul>
+
+  
+</nav>
+
+
+  
+  
+    <footer class="site-footer">
+      This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+  
+</div>
+
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search CS 188 Spring 2024" aria-label="Search CS 188 Spring 2024" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#" class="site-button">
+          Dark Mode
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://edstem.org/us/courses/53090" class="site-button">
+          Ed
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://cs188-oh.apps.cs61a.org/" class="site-button">
+          OH Queue
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdIVsw-XMblea5a1mbamHeFLql20eTVE8HmNJzKXU_JzHtl2g/viewform" class="site-button">
+          Extensions Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTblOdJkV-8iQaM7-V5B9mBKElbn5zmb2Ovdpp5r7Y9I3IFQ/viewform" class="site-button">
+          Attendance Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaKOOcAjG3KXTalojLnT-7n9rg7rHTqP8K_7DvrKN5O73PTQ/viewform" class="site-button">
+          Discussion Attendance Form
+        </a>
+      </li>
+    
+      <li class="aux-nav-list-item">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdHvjOKF9NnH8qKjkdQzLdedPC6nDXXpsQHe5ByccvcYraweA/viewform" class="site-button">
+          Feedback Form
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/">Projects</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Project 0</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <h1 class="no_toc" id="project-0-python-setup--autograder-tutorial">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#project-0-python-setup--autograder-tutorial" class="anchor-heading" aria-labelledby="project-0-python-setup--autograder-tutorial"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Project 0: Python, Setup, &amp; Autograder Tutorial
+  
+  
+</h1>
+    
+
+<div style="text-align:center;">
+Due: <b>Friday, January 19, 11:59 PM PT</b>.
+</div>
+<h2 class="no_toc text-delta" id="table-of-contents">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#table-of-contents" class="anchor-heading" aria-labelledby="table-of-contents"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Table of contents
+  
+  
+</h2>
+    
+
+<ul id="markdown-toc">
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#python-installation" id="markdown-toc-python-installation">Python Installation</a>    <ul>
+      <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#dependencies-installation" id="markdown-toc-dependencies-installation">Dependencies installation</a>        <ul>
+          <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#troubleshooting" id="markdown-toc-troubleshooting">Troubleshooting</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#workflow-setup-examples" id="markdown-toc-workflow-setup-examples">Workflow/ Setup Examples</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#python-basics" id="markdown-toc-python-basics">Python Basics</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#autograding" id="markdown-toc-autograding">Autograding</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q1-addition" id="markdown-toc-q1-addition">Q1: Addition</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q2-buylotsoffruit-function" id="markdown-toc-q2-buylotsoffruit-function">Q2: buyLotsOfFruit function</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q3-shopsmart-function" id="markdown-toc-q3-shopsmart-function">Q3: shopSmart function</a></li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#submission" id="markdown-toc-submission">Submission</a></li>
+</ul><hr>
+<h2 id="introduction">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>Projects in this class use Python 3.</p>
+
+<p>Project 0 will cover the following:</p>
+
+<ul>
+  <li>Instructions on how to set up Python,</li>
+  <li>Workflow examples,</li>
+  <li>A mini-Python tutorial,</li>
+  <li>Project grading: Every project’s release includes its autograder that you can run locally to debug. When you submit, the same autograder is ran.</li>
+</ul>
+
+<p><strong>Files to Edit and Submit:</strong> You will fill in portions of <code class="language-plaintext highlighter-rouge">addition.py</code>, <code class="language-plaintext highlighter-rouge">buyLotsOfFruit.py</code>, and <code class="language-plaintext highlighter-rouge">shopSmart.py</code> in <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/projects/tutorial.zip">tutorial.zip</a> during the assignment. Once you have completed the assignment, you will submit these files to Gradescope (for instance, you can upload all <code class="language-plaintext highlighter-rouge">.py</code> files in the folder). Please do not change the other files in this distribution.</p>
+
+<p><strong>Evaluation</strong>: Your code will be autograded for technical correctness. Please do not change the names of any provided functions or classes within the code, or you will wreak havoc on the autograder. However, the correctness of your implementation – not the autograder’s judgements – will be the final judge of your score. If necessary, we will review and grade assignments individually to ensure that you receive due credit for your work.</p>
+
+<p><strong>Academic Dishonesty</strong>: We will be checking your code against other submissions in the class for logical redundancy. If you copy someone else’s code and submit it with minor changes, we will know. These cheat detectors are quite hard to fool, so please don’t try. We trust you all to submit your own work only; please don’t let us down. If you do, we will pursue the strongest consequences available to us.</p>
+
+<p><strong>Getting Help</strong>: You are not alone! If you find yourself stuck on something, contact the course staff for help. Office hours, section, and the discussion forum are there for your support; please use them. If you can’t make our office hours, let us know and we will schedule more. We want these projects to be rewarding and instructional, not frustrating and demoralizing. But, we don’t know when or how to help unless you ask.</p>
+
+<p><strong>Discussion</strong>: Please be careful not to post spoilers.</p>
+<h2 id="python-installation">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#python-installation" class="anchor-heading" aria-labelledby="python-installation"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Python Installation
+  
+  
+</h2>
+    
+
+<p>You need a Python (3.9 - 3.11) distribution and either <a href="https://pypi.org/project/pip/">Pip</a> or <a href="https://docs.conda.io/en/latest/">Conda</a>. Many of you will already have Python installed from CS 61A (so just missing Pip), or Anaconda from EECS 16A.</p>
+
+<p>To check if you meet our requirements, you should open the terminal run <code class="language-plaintext highlighter-rouge">python -V</code> and see that the version is high enough. Then, run <code class="language-plaintext highlighter-rouge">pip -V</code> and <code class="language-plaintext highlighter-rouge">conda -V</code> and see that at least one of these works and prints out some version of the tool. On some systems that also have Python 2 you may have to use <code class="language-plaintext highlighter-rouge">python3</code> and <code class="language-plaintext highlighter-rouge">pip3</code> instead of the aforementioned.</p>
+
+<p>If you need to install things, we recommend Python 3.9 and Pip for simplicity. If you already have Python, you just need to install Pip.</p>
+
+<p>On Windows either Windows Python or WSL2 can be used. WSL2 is really nice and provides a full Linux environment, but takes up more space; Linux/ MacOS (both Unix) is used much more often for computer science than Windows because it is more convenient and development tools are also more reliable. It doesn’t make a difference for this class but is a good tool to learn to use if you are interested and have the time.</p>
+
+<p>If you choose to use Conda via Anaconda or Miniconda, these already come with Python and Pip so you would install just the one thing.</p>
+
+<ol>
+  <li>Install Python:
+    <ul>
+      <li>For Windows and MacOS, we recommend using an <a href="https://www.python.org/downloads/">official graphical installer</a>: download and install Python 3.9.</li>
+      <li>For Linux, use a package manager to install Python 3.9.</li>
+    </ul>
+  </li>
+  <li>Install Pip:
+    <ul>
+      <li>For Windows and MacOS, run <code class="language-plaintext highlighter-rouge">python -m ensurepip --upgrade</code>.</li>
+      <li>For Linux, use a package manager to install Pip for Python 3.</li>
+    </ul>
+  </li>
+</ol>
+<h3 id="dependencies-installation">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#dependencies-installation" class="anchor-heading" aria-labelledby="dependencies-installation"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Dependencies installation
+  
+  
+</h3>
+    
+
+<p>First, go through the <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#autograding">Autograding</a> section to understand how to work with <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/projects/tutorial.zip">tutorial.zip</a> and the <code class="language-plaintext highlighter-rouge">autograder.py</code> inside.</p>
+
+<p>The machine learning project has additional dependencies. It’s important to install them now so that if there is an issue with the Python installation, we don’t have to come back or redo the installation later.</p>
+
+<p>On Conda installations, the dependencies should already be there. You can test by confirming that this command produces the below window pop up where a line segment spins in a circle.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python autograder.py <span class="nt">--check-dependencies</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p><img style="display:block;margin-left:auto;margin-right:auto;width:600px" alt="Plot of a line" src="./Project 0 _ CS 188 Spring 2024_files/ml_check_dependencies.png"></p>
+
+<p>The libararies needed and the corresponding commands are:</p>
+
+<ul>
+  <li><a href="https://numpy.org/">numpy</a>, which provides support for fast, large multi-dimensional arrays.</li>
+  <li><a href="https://matplotlib.org/">matplotlib</a>, a 2D plotting library.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>numpy
+pip <span class="nb">install </span>matplotlib
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>After these, use the <code class="language-plaintext highlighter-rouge">python autograder.py --check-dependencies</code> command to confirm that everything works.</p>
+<h4 id="troubleshooting">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#troubleshooting" class="anchor-heading" aria-labelledby="troubleshooting"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Troubleshooting
+  
+  
+</h4>
+    
+
+<p>Some installations will have <code class="language-plaintext highlighter-rouge">python3</code> and <code class="language-plaintext highlighter-rouge">pip3</code> refer to what we want to use. Also, there may by multiple installations of python that may complicate which commands install where.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-V</span> <span class="c"># version of python</span>
+pip <span class="nt">-V</span> <span class="c"># version of pip, and which python it is installing to</span>
+which python <span class="c"># where python is</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>If there is a <code class="language-plaintext highlighter-rouge">tkinter</code> import error, it’s likely because Python is atypical, and from Homebrew. Uninstall that and install python from Homebrew with <code class="language-plaintext highlighter-rouge">tkinter</code> support, or use the recommended graphical installer.</p>
+<h2 id="workflow-setup-examples">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#workflow-setup-examples" class="anchor-heading" aria-labelledby="workflow-setup-examples"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Workflow/ Setup Examples
+  
+  
+</h2>
+    
+
+<p>You are not expected to use a particular code editor or anything, but here are some suggestions on convenient workflows (you can skim both for half a minute and choose the one that looks better to you):</p>
+
+<ul>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/ide-workflow">GUI and IDE</a>, with VS Code shortcuts. You are highly encouraged to read the Using an IDE section if using an IDE to learn convenient features.</li>
+  <li><a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/terminal-workflow">In terminal</a>, using Unix commans and Emacs (this is fine to do on Windows too). Useful to be able to edit code on any machine without setup, and remote connecting setups such as using the instructional machines.</li>
+</ul><hr>
+<h2 id="python-basics">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#python-basics" class="anchor-heading" aria-labelledby="python-basics"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Python Basics
+  
+  
+</h2>
+    
+
+<p>If you’re new to Python or need a refresher, we recommend going through <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/python-basics">the Python basics tutorial</a>.</p><hr>
+<h2 id="autograding">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#autograding" class="anchor-heading" aria-labelledby="autograding"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Autograding
+  
+  
+</h2>
+    
+
+<p>To get you familiarized with the autograder, we will ask you to code, test, and submit your code after solving the three questions.</p>
+
+<p>You can download all of the files associated the autograder tutorial as a zip archive: <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/assets/projects/tutorial.zip">tutorial.zip</a> (note this is different from the zip file used in the UNIX and Python mini-tutorials, python_basics.zip). Unzip this file and examine its contents:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cs188-ta@nova ~]<span class="nv">$ </span>unzip tutorial.zip
+<span class="o">[</span>cs188-ta@nova ~]<span class="nv">$ </span><span class="nb">cd </span>tutorial
+<span class="o">[</span>cs188-ta@nova ~/tutorial]<span class="nv">$ </span><span class="nb">ls
+</span>addition.py
+autograder.py
+buyLotsOfFruit.py
+grading.py
+projectParams.py
+shop.py
+shopSmart.py
+testClasses.py
+testParser.py
+test_cases
+tutorialTestClasses.py
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>This contains a number of files you’ll edit or run:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">addition.py</code>: source file for question 1</li>
+  <li><code class="language-plaintext highlighter-rouge">buyLotsOfFruit.py</code>: source file for question 2</li>
+  <li><code class="language-plaintext highlighter-rouge">shop.py</code>: source file for question 3</li>
+  <li><code class="language-plaintext highlighter-rouge">shopSmart.py</code>: source file for question 3</li>
+  <li><code class="language-plaintext highlighter-rouge">autograder.py</code>: autograding script (see below)</li>
+</ul>
+
+<p>and others you can ignore:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">test_cases</code>: directory contains the test cases for each question</li>
+  <li><code class="language-plaintext highlighter-rouge">grading.py</code>: autograder code</li>
+  <li><code class="language-plaintext highlighter-rouge">testClasses.py</code>: autograder code</li>
+  <li><code class="language-plaintext highlighter-rouge">tutorialTestClasses.py</code>: test classes for this particular project</li>
+  <li><code class="language-plaintext highlighter-rouge">projectParams.py</code>: project parameters</li>
+</ul>
+
+<p>The command <code class="language-plaintext highlighter-rouge">python autograder.py</code> grades your solution to all three problems. If we run it before editing any files we get a page or two of output:</p>
+
+<details>
+<summary>Click to see full output of <code>python autograder.py</code></summary>
+
+<pre><code>
+[cs188-ta@nova ~/tutorial]$ python autograder.py
+Starting on 1-21 at 23:39:51
+
+Question q1
+===========
+*** FAIL: test_cases/q1/addition1.test
+***     add(a, b) must return the sum of a and b
+***     student result: "0"
+***     correct result: "2"
+*** FAIL: test_cases/q1/addition2.test
+***     add(a, b) must return the sum of a and b
+***     student result: "0"
+***     correct result: "5"
+*** FAIL: test_cases/q1/addition3.test
+***     add(a, b) must return the sum of a and b
+***     student result: "0"
+***     correct result: "7.9"
+*** Tests failed.
+
+### Question q1: 0/1 ###
+
+
+Question q2
+===========
+*** FAIL: test_cases/q2/food_price1.test
+***     buyLotsOfFruit must compute the correct cost of the order
+***     student result: "0.0"
+***     correct result: "12.25"
+*** FAIL: test_cases/q2/food_price2.test
+***     buyLotsOfFruit must compute the correct cost of the order
+***     student result: "0.0"
+***     correct result: "14.75"
+*** FAIL: test_cases/q2/food_price3.test
+***     buyLotsOfFruit must compute the correct cost of the order
+***     student result: "0.0"
+***     correct result: "6.4375"
+*** Tests failed.
+
+### Question q2: 0/1 ###
+
+
+Question q3
+===========
+Welcome to shop1 fruit shop
+Welcome to shop2 fruit shop
+*** FAIL: test_cases/q3/select_shop1.test
+***     shopSmart(order, shops) must select the cheapest shop
+***     student result: "None"
+***     correct result: "&lt;FruitShop: shop1&gt;"
+Welcome to shop1 fruit shop
+Welcome to shop2 fruit shop
+*** FAIL: test_cases/q3/select_shop2.test
+***     shopSmart(order, shops) must select the cheapest shop
+***     student result: "None"
+***     correct result: "&lt;FruitShop: shop2&gt;"
+Welcome to shop1 fruit shop
+Welcome to shop2 fruit shop
+Welcome to shop3 fruit shop
+*** FAIL: test_cases/q3/select_shop3.test
+***     shopSmart(order, shops) must select the cheapest shop
+***     student result: "None"
+***     correct result: "&lt;FruitShop: shop3&gt;"
+*** Tests failed.
+
+### Question q3: 0/1 ###
+
+
+Finished at 23:39:51
+
+Provisional grades
+==================
+Question q1: 0/1
+Question q2: 0/1
+Question q3: 0/1
+------------------
+Total: 0/3
+
+Your grades are NOT yet registered.  To register your grades, make sure
+to follow your instructor's guidelines to receive credit on your project.
+</code></pre>
+</details>
+
+<p>For each of the three questions, this shows the results of that question’s tests, the questions grade, and a final summary at the end. Because you haven’t yet solved the questions, all the tests fail. As you solve each question you may find some tests pass while other fail. When all tests pass for a question, you get full marks.</p>
+
+<p>Looking at the results for question 1, you can see that it has failed three tests with the error message “add(a, b) must return the sum of a and b”. The answer your code gives is always 0, but the correct answer is different. We’ll fix that in the next tab.</p><hr>
+<h2 id="q1-addition">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q1-addition" class="anchor-heading" aria-labelledby="q1-addition"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q1: Addition
+  
+  
+</h2>
+    
+
+<p>Open <code class="language-plaintext highlighter-rouge">addition.py</code> and look at the definition of <code class="language-plaintext highlighter-rouge">add</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="s">"Return the sum of a and b"</span>
+    <span class="s">"*** YOUR CODE HERE ***"</span>
+    <span class="k">return</span> <span class="mi">0</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>The tests called this with a and b set to different values, but the code always returned zero. Modify this definition to read:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="s">"Return the sum of a and b"</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Passed a = %s and b = %s, returning a + b = %s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>Now rerun the autograder (omitting the results for questions 2 and 3):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cs188-ta@nova ~/tutorial]<span class="nv">$ </span>python autograder.py <span class="nt">-q</span> q1
+Starting on 1-22 at 23:12:08
+
+Question q1
+<span class="o">===========</span>
+
+<span class="k">***</span> PASS: test_cases/q1/addition1.test
+<span class="k">***</span>     add<span class="o">(</span>a,b<span class="o">)</span> returns the <span class="nb">sum </span>of a and b
+<span class="k">***</span> PASS: test_cases/q1/addition2.test
+<span class="k">***</span>     add<span class="o">(</span>a,b<span class="o">)</span> returns the <span class="nb">sum </span>of a and b
+<span class="k">***</span> PASS: test_cases/q1/addition3.test
+<span class="k">***</span>     add<span class="o">(</span>a,b<span class="o">)</span> returns the <span class="nb">sum </span>of a and b
+
+<span class="c">### Question q1: 1/1 ###</span>
+
+
+Finished at 23:12:08
+
+Provisional grades
+<span class="o">==================</span>
+Question q1: 1/1
+<span class="nt">------------------</span>
+Total: 1/1
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p>You now pass all tests, getting full marks for question 1. Notice the new lines “Passed a=…” which appear before “*** PASS: …”. These are produced by the print statement in <code class="language-plaintext highlighter-rouge">add</code>. You can use print statements like that to output information useful for debugging.</p><hr>
+<h2 id="q2-buylotsoffruit-function">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q2-buylotsoffruit-function" class="anchor-heading" aria-labelledby="q2-buylotsoffruit-function"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q2: buyLotsOfFruit function
+  
+  
+</h2>
+    
+
+<p>Implement the <code class="language-plaintext highlighter-rouge">buyLotsOfFruit(orderList)</code> function in <code class="language-plaintext highlighter-rouge">buyLotsOfFruit.py</code> which takes a list of <code class="language-plaintext highlighter-rouge">(fruit,numPounds)</code> tuples and returns the cost of your list. If there is some <code class="language-plaintext highlighter-rouge">fruit</code> in the list which doesn’t appear in <code class="language-plaintext highlighter-rouge">fruitPrices</code> it should print an error message and return <code class="language-plaintext highlighter-rouge">None</code>. Please do not change the <code class="language-plaintext highlighter-rouge">fruitPrices</code> variable.</p>
+
+<p>Run <code class="language-plaintext highlighter-rouge">python autograder.py</code> until question 2 passes all tests and you get full marks. Each test will confirm that <code class="language-plaintext highlighter-rouge">buyLotsOfFruit(orderList)</code> returns the correct answer given various possible inputs. For example, <code class="language-plaintext highlighter-rouge">test_cases/q2/food_price1.test</code> tests whether:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Cost of [('apples', 2.0), ('pears', 3.0), ('limes', 4.0)] is 12.25</code></p><hr>
+<h2 id="q3-shopsmart-function">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#q3-shopsmart-function" class="anchor-heading" aria-labelledby="q3-shopsmart-function"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Q3: shopSmart function
+  
+  
+</h2>
+    
+
+<p>Fill in the function <code class="language-plaintext highlighter-rouge">shopSmart(orderList,fruitShops)</code> in <code class="language-plaintext highlighter-rouge">shopSmart.py</code>, which takes an orderList (like the kind passed in to <code class="language-plaintext highlighter-rouge">FruitShop.getPriceOfOrder</code>) and a list of <code class="language-plaintext highlighter-rouge">FruitShop</code> and returns the <code class="language-plaintext highlighter-rouge">FruitShop</code> where your order costs the least amount in total. Don’t change the file name or variable names, please. Note that we will provide the <code class="language-plaintext highlighter-rouge">shop.py</code> implementation as a “support” file, so you don’t need to submit yours.</p>
+
+<p>Run <code class="language-plaintext highlighter-rouge">python autograder.py</code> until question 3 passes all tests and you get full marks. Each test will confirm that <code class="language-plaintext highlighter-rouge">shopSmart(orderList,fruitShops)</code> returns the correct answer given various possible inputs. For example, with the following variable definitions:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">orders1</span> <span class="o">=</span> <span class="p">[(</span><span class="s">'apples'</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s">'oranges'</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)]</span>
+<span class="n">orders2</span> <span class="o">=</span> <span class="p">[(</span><span class="s">'apples'</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)]</span>
+<span class="n">dir1</span> <span class="o">=</span> <span class="p">{</span><span class="s">'apples'</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s">'oranges'</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
+<span class="n">shop1</span> <span class="o">=</span>  <span class="n">shop</span><span class="p">.</span><span class="n">FruitShop</span><span class="p">(</span><span class="s">'shop1'</span><span class="p">,</span><span class="n">dir1</span><span class="p">)</span>
+<span class="n">dir2</span> <span class="o">=</span> <span class="p">{</span><span class="s">'apples'</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">'oranges'</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">}</span>
+<span class="n">shop2</span> <span class="o">=</span> <span class="n">shop</span><span class="p">.</span><span class="n">FruitShop</span><span class="p">(</span><span class="s">'shop2'</span><span class="p">,</span> <span class="n">dir2</span><span class="p">)</span>
+<span class="n">shops</span> <span class="o">=</span> <span class="p">[</span><span class="n">shop1</span><span class="p">,</span> <span class="n">shop2</span><span class="p">]</span>
+</code></pre></div><button type="button" aria-label="Copy code to clipboard"><svg viewBox="0 0 24 24" class="copy-icon"><use xlink:href="#svg-copy"></use></svg></button></div>
+
+<p><code class="language-plaintext highlighter-rouge">test_cases/q3/select_shop1.test</code> tests whether: <code class="language-plaintext highlighter-rouge">shopSmart.shopSmart(orders1, shops) == shop1</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">and test_cases/q3/select_shop2.test</code> tests whether: <code class="language-plaintext highlighter-rouge">shopSmart.shopSmart(orders2, shops) == shop2</code></p><hr>
+<h2 id="submission">
+  
+  
+    <a href="https://inst.eecs.berkeley.edu/~cs188/sp24/projects/proj0/#submission" class="anchor-heading" aria-labelledby="submission"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission
+  
+  
+</h2>
+    
+
+<p>In order to submit your project upload the Python files you edited. For instance, use Gradescope’s upload on all <code class="language-plaintext highlighter-rouge">.py</code> files in the project folder.</p>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="./Project 0 _ CS 188 Spring 2024_files/jquery.min.js.下载"></script>
+<!--
+June 2024 - looks like the copy button got merged, bless
+https://just-the-docs.com/docs/ui-components/code/#copy-button
+
+<script src="/~cs188/sp24/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="./Project 0 _ CS 188 Spring 2024_files/tocbot.min.js.下载"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+
+
+
+</body></html>
